@@ -1,0 +1,92 @@
+/usr/local/lib/python3.11/site-packages/celery/platforms.py:841: SecurityWarning: You're running the worker with superuser privileges: this is
+absolutely not recommended!
+
+Please specify a different user using the --uid option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  warnings.warn(SecurityWarning(ROOT_DISCOURAGED.format(
+ 
+ -------------- celery@09cbd4676a3f v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.41 2026-11-04 02:05:14
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vision_ai:0x7a78c53a63d0
+- ** ---------- .> transport:   redis://:**@redis:6379/2
+- ** ---------- .> results:     redis://redis:6379/3
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ai.classify_job
+
+[2026-11-04 02:05:14,191: INFO/MainProcess] Connected to redis://:**@redis:6379/2
+[2026-11-04 02:05:14,193: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-04 02:05:15,202: INFO/MainProcess] mingle: all alone
+[2026-11-04 02:05:15,211: INFO/MainProcess] celery@09cbd4676a3f ready.
+[2026-11-04 02:09:20,344: INFO/MainProcess] Task ai.classify_job[d44a7977-8f5f-4229-a426-9dd416b0af23] received
+[2026-11-04 02:09:22,567: WARNING/MainProcess] Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[2026-11-04 02:09:22,569: WARNING/MainProcess] Device set to use cpu
+[2026-11-04 02:09:22,602: INFO/MainProcess] Task ai.classify_job[d44a7977-8f5f-4229-a426-9dd416b0af23] succeeded in 2.2567139400007363s: {'job_id': 1, 'status': 'done'}
+[2026-11-04 02:09:22,764: INFO/MainProcess] Task ai.classify_job[a07e761f-7a53-4837-9c46-a7c9045850e4] received
+[2026-11-04 02:09:22,792: INFO/MainProcess] Task ai.classify_job[a07e761f-7a53-4837-9c46-a7c9045850e4] succeeded in 0.028600783000001684s: {'job_id': 2, 'status': 'done'}
+[2026-11-04 02:09:22,880: INFO/MainProcess] Task ai.classify_job[8f8778af-0d71-4d1c-a904-eb905353967b] received
+[2026-11-04 02:09:22,909: INFO/MainProcess] Task ai.classify_job[8f8778af-0d71-4d1c-a904-eb905353967b] succeeded in 0.02879172800021479s: {'job_id': 3, 'status': 'done'}
+[2026-11-04 02:09:23,002: INFO/MainProcess] Task ai.classify_job[58765c19-d02b-422d-b6cf-18ff73ce0189] received
+[2026-11-04 02:09:23,036: INFO/MainProcess] Task ai.classify_job[58765c19-d02b-422d-b6cf-18ff73ce0189] succeeded in 0.03441359599946736s: {'job_id': 4, 'status': 'done'}
+[2026-11-04 02:09:23,123: INFO/MainProcess] Task ai.classify_job[41234832-f5d3-4b36-8798-bbb269825d84] received
+[2026-11-04 02:09:23,153: INFO/MainProcess] Task ai.classify_job[41234832-f5d3-4b36-8798-bbb269825d84] succeeded in 0.02997902399965824s: {'job_id': 5, 'status': 'done'}
+[2026-11-04 02:09:23,244: INFO/MainProcess] Task ai.classify_job[0511bd84-a46c-4667-8ca7-1316b4c0548f] received
+[2026-11-04 02:09:23,275: INFO/MainProcess] Task ai.classify_job[0511bd84-a46c-4667-8ca7-1316b4c0548f] succeeded in 0.031125380999583285s: {'job_id': 6, 'status': 'done'}
+[2026-11-04 02:09:23,365: INFO/MainProcess] Task ai.classify_job[790b4379-5ceb-4333-bdc2-fe4592284691] received
+[2026-11-04 02:09:23,374: INFO/MainProcess] Task ai.classify_job[790b4379-5ceb-4333-bdc2-fe4592284691] succeeded in 0.00865077799971914s: {'job_id': 7, 'status': 'done'}
+[2026-11-04 02:09:23,487: INFO/MainProcess] Task ai.classify_job[b902d9fc-b82d-4361-8d59-0f276add9ce4] received
+[2026-11-04 02:09:23,495: INFO/MainProcess] Task ai.classify_job[b902d9fc-b82d-4361-8d59-0f276add9ce4] succeeded in 0.007797242999913578s: {'job_id': 8, 'status': 'done'}
+[2026-11-04 02:09:23,604: INFO/MainProcess] Task ai.classify_job[96132679-1c42-4c4f-bdec-ec1795b804a6] received
+[2026-11-04 02:09:23,613: INFO/MainProcess] Task ai.classify_job[96132679-1c42-4c4f-bdec-ec1795b804a6] succeeded in 0.009130696000283933s: {'job_id': 9, 'status': 'done'}
+[2026-11-04 02:09:23,724: INFO/MainProcess] Task ai.classify_job[149467a6-57a3-46eb-9f2a-2ab6b05ca2bf] received
+[2026-11-04 02:09:23,732: INFO/MainProcess] Task ai.classify_job[149467a6-57a3-46eb-9f2a-2ab6b05ca2bf] succeeded in 0.008071821000157797s: {'job_id': 10, 'status': 'done'}
+[2026-11-04 02:09:23,840: INFO/MainProcess] Task ai.classify_job[2c21a9a6-15fa-48d6-95b2-61a6bc3d8d04] received
+[2026-11-04 02:09:23,848: INFO/MainProcess] Task ai.classify_job[2c21a9a6-15fa-48d6-95b2-61a6bc3d8d04] succeeded in 0.007666172999961418s: {'job_id': 11, 'status': 'done'}
+
+worker: Warm shutdown (MainProcess)
+/usr/local/lib/python3.11/site-packages/celery/platforms.py:841: SecurityWarning: You're running the worker with superuser privileges: this is
+absolutely not recommended!
+
+Please specify a different user using the --uid option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  warnings.warn(SecurityWarning(ROOT_DISCOURAGED.format(
+ 
+ -------------- celery@09cbd4676a3f v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.41 2026-11-04 02:09:58
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vision_ai:0x7b58b733a590
+- ** ---------- .> transport:   redis://:**@redis:6379/2
+- ** ---------- .> results:     redis://redis:6379/3
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ai.classify_job
+
+[2026-11-04 02:09:58,836: INFO/MainProcess] Connected to redis://:**@redis:6379/2
+[2026-11-04 02:09:58,837: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-04 02:09:59,844: INFO/MainProcess] mingle: all alone
+[2026-11-04 02:09:59,853: INFO/MainProcess] celery@09cbd4676a3f ready.
+[2026-11-04 02:09:59,855: INFO/MainProcess] Task ai.classify_job[a2777253-47b0-475d-843b-4f5432eb5b57] received
+[2026-11-04 02:10:02,264: WARNING/MainProcess] Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[2026-11-04 02:10:02,265: WARNING/MainProcess] Device set to use cpu
+[2026-11-04 02:10:02,301: INFO/MainProcess] Task ai.classify_job[a2777253-47b0-475d-843b-4f5432eb5b57] succeeded in 2.4453085169998303s: {'job_id': 12, 'status': 'done'}

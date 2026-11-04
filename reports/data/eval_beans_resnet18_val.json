@@ -2,7 +2,7 @@
   "model": "artifacts/beans_resnet18",
   "data": "dataset/val",
   "device": "cuda",
-  "evaluated_at": "2026-11-04T11:46:41+09:00",
+  "evaluated_at": "2026-11-04T12:07:14+09:00",
   "count": 133,
   "correct": 102,
   "accuracy": 0.7669,

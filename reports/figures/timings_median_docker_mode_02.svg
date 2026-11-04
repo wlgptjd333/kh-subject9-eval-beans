@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="348" viewBox="0 0 760 348" font-family="sans-serif">
+<rect width="760" height="348" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" font-weight="bold" fill="#222">응답·완료 시간 중앙값 (ms, 조건별 5회, 워밍업 제외)</text>
+<text x="20" y="47" font-size="12" fill="#555">CPU 컨테이너, Async 최종 확인은 0.1초 간격 조회 포함 — 2026-11-04</text>
+<text x="200" y="76.0" font-size="13" text-anchor="end" fill="#222">Sync MISS (응답=결과)</text>
+<rect x="210" y="58" width="79.4" height="26" fill="#2f6db5"/>
+<text x="295.4" y="76.0" font-size="13" fill="#222">20.4</text>
+<text x="200" y="116.0" font-size="13" text-anchor="end" fill="#222">Sync HIT</text>
+<rect x="210" y="98" width="7.4" height="26" fill="#7fa8d9"/>
+<text x="223.4" y="116.0" font-size="13" fill="#222">1.9</text>
+<text x="200" y="156.0" font-size="13" text-anchor="end" fill="#222">Async 접수 MISS (202)</text>
+<rect x="210" y="138" width="38.6" height="26" fill="#c2702b"/>
+<text x="254.6" y="156.0" font-size="13" fill="#222">9.9</text>
+<text x="200" y="196.0" font-size="13" text-anchor="end" fill="#222">Async 접수 HIT (202)</text>
+<rect x="210" y="178" width="35.8" height="26" fill="#e3a979"/>
+<text x="251.8" y="196.0" font-size="13" fill="#222">9.2</text>
+<text x="200" y="236.0" font-size="13" text-anchor="end" fill="#222">Async 최종 확인 MISS</text>
+<rect x="210" y="218" width="470.0" height="26" fill="#5b8c3a"/>
+<text x="686.0" y="236.0" font-size="13" fill="#222">120.7</text>
+<text x="200" y="276.0" font-size="13" text-anchor="end" fill="#222">Async 최종 확인 HIT</text>
+<rect x="210" y="258" width="460.7" height="26" fill="#9cc47e"/>
+<text x="676.7" y="276.0" font-size="13" fill="#222">118.3</text>
+<text x="20" y="332" font-size="11" fill="#666">원본: reports/data/timings.csv</text></svg>

@@ -1,0 +1,25 @@
+# T-10 / T-16  Worker 정지 상태 접수 (2026-11-04 12:10:42 +0900)
+Celery Worker 터미널에서 Ctrl+C로 정지함
+$ pgrep -fa 'celery -A ai.celery_app'
+(실행 중인 worker 없음)
+$ curl -F image=@dataset/val/healthy/healthy_val.17.jpg /api/async/classify/
+{"job_id":12,"status":"queued","check_url":"/api/async/jobs/12/"}  HTTP 202
+$ curl -F image=@dataset/val/bean_rust/bean_rust_val.17.jpg /api/async/classify/
+{"job_id":13,"status":"queued","check_url":"/api/async/jobs/13/"}  HTTP 202
+$ (5초 뒤) GET /api/async/jobs/12/ , /13/
+{"job_id":12,"status":"queued","model_id":"artifacts/beans_resnet18","top1":null,"all":null,"inference_ms":null,"cache_hit":null,"error_message":null}
+{"job_id":13,"status":"queued","model_id":"artifacts/beans_resnet18","top1":null,"all":null,"inference_ms":null,"cache_hit":null,"error_message":null}
+$ redis-cli -n 2 llen celery   (브로커 대기열)
+2
+# T-16 준비: job 13의 업로드 파일 media/jobs/21ee240c252a4379a800b1acfb1a52f4.bin 를 Worker 재시작 전에 삭제 (파일 유실 상황 재현)
+removed 'media/jobs/21ee240c252a4379a800b1acfb1a52f4.bin'
+$ (Worker 재시작 후, 약 1초) GET /api/async/jobs/12/
+{"job_id":12,"status":"done","model_id":"artifacts/beans_resnet18","top1":{"label":"healthy","score":0.8513124585151672},"all":[{"label":"healthy","score":0.8513124585151672},{"label":"bean_rust","score":0.0959252119064331},{"label":"angular_leaf_spot","score":0.052762389183044434}],"inference_ms":2808.34,"cache_hit":false,"error_message":null}
+$ GET /api/async/jobs/13/
+{"job_id":13,"status":"failed","model_id":"artifacts/beans_resnet18","top1":null,"all":null,"inference_ms":null,"cache_hit":null,"error_message":"FileNotFoundError: [Errno 2] No such file or directory: '/home/user1/kh-subject9-eval-beans/media/jobs/21ee240c252a4379a800b1acfb1a52f4.bin'"}
+$ redis-cli -n 2 llen celery
+0
+$ worker 로그 중 job 12·13
+[2026-11-04 12:13:24,875: INFO/MainProcess] Task ai.classify_job[61ae6bf2-2e38-4f2f-b6d6-09f479cf2a73] succeeded in 2.849350985001365s: {'job_id': 12, 'status': 'done'}
+[2026-11-04 12:13:24,887: ERROR/MainProcess] Task ai.classify_job[5d03a070-4014-4659-8e86-d2e77153535d] raised unexpected: FileNotFoundError(2, 'No such file or directory')
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user1/kh-subject9-eval-beans/media/jobs/21ee240c252a4379a800b1acfb1a52f4.bin'

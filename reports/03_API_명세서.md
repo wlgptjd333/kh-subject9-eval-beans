@@ -1,74 +1,88 @@
 # 산출물 3. API 명세서
 
-기준 주소 `http://127.0.0.1:8000`. 모든 업로드는 `multipart/form-data`, 필드명 `image`. 업로드 한도 5MB(`MAX_UPLOAD_BYTES`), 허용 형식 JPEG·PNG·WEBP, 최대 1,200만 픽셀.
+기준 주소 `http://127.0.0.1:8000` (FastAPI, `.venv`). 업로드는 `multipart/form-data`, 필드명 `image`. 한도 5MB(`MAX_UPLOAD_BYTES`), 형식 JPEG·PNG·WEBP, 최대 1,200만 픽셀.
 
-| API ID | Method | URL | 요청 | 성공 HTTP | 주요 응답 | 실패 HTTP |
+| API ID | Method | URL | 요청 형태 | 성공 HTTP | 주요 응답 | 실패 HTTP |
 |---|---|---|---|---:|---|---|
-| A-01 | GET | `/health` | 없음 | 200 | `{"status":"ok"}` | — |
-| A-02 | POST | `/api/sync/classify/` | `image` 파일 | 200 | `model_id`, `top1{label,score}`, `all[]`, `inference_ms`, `cache_hit` | 400 이미지 아님·형식 불가, 413 5MB 초과, 422 `image` 누락 |
-| A-03 | POST | `/api/async/classify/` | `image` 파일 | **202** | `job_id`, `status:"queued"`, `check_url` | 400, 413, 422, 503 큐 등록 실패(Redis) |
-| A-04 | GET | `/api/async/jobs/{job_id}/` | 경로 변수 `job_id` | 200 | `status`(queued·running·done·failed), `top1`·`all`(done일 때만), `inference_ms`, `cache_hit`, `error_message`(failed일 때만) | 404 없는 작업 |
-| W-01 | GET | `/vision/sync/` | 없음 | 200 | 동기 분류 화면 (HTML) | — |
-| W-02 | GET | `/vision/async/` | 없음 | 200 | 비동기 분류 화면 (HTML, 1초 간격 최대 60회 조회) | — |
-| W-03 | GET | `/docs` | 없음 | 200 | Swagger 문서 ([캡처](evidence/ui_swagger.png)) | — |
+| API-01 | GET | `/health` | 없음 | 200 | `status` | 서버 미실행 시 응답 없음 |
+| API-02 | POST | `/api/sync/classify/` | `multipart/form-data` / `image` | 200 | `model_id`, `top1`, `all`, `inference_ms`, `cache_hit` | 400, 413, 422 |
+| API-03 | POST | `/api/async/classify/` | `multipart/form-data` / `image` | **202** | `job_id`, `status`, `check_url` | 400, 413, 422, 503 |
+| API-04 | GET | `/api/async/jobs/{job_id}/` | 정수 `job_id` | 200 | `status`, `model_id`, `top1`, `all`, `inference_ms`, `cache_hit`, `error_message` | 404 |
+| WEB-01 | GET | `/vision/sync/` | 없음 | 200 | HTML | — |
+| WEB-02 | GET | `/vision/async/` | 없음 | 200 | HTML (1초 간격, 최대 60회 조회) | — |
+| WEB-03 | GET | `/docs` | 없음 | 200 | Swagger UI ([캡처](evidence/ui_swagger.png)) | — |
 
-- **202는 "접수"이지 "완료"가 아니다.** 결과는 A-04로 따로 조회해야 한다.
-- `cache_hit=true`일 때 `inference_ms=null` → 모델 추론을 **건너뛰었다**는 뜻이지 0ms가 아니다.
-- 동기 API는 DB에 기록하지 않는다. `image_jobs`에는 비동기 작업만 쌓인다.
+### API-02 동기 분류 상세
+
+| 항목 | 내용 |
+|---|---|
+| Content-Type | `multipart/form-data` |
+| 요청 필드 | `image`: JPEG/PNG/WEBP, 5MB 이하 |
+| 성공 | 200 — 응답 안에 분류 결과 포함 |
+| 오류 | 400 이미지가 아님·형식 불가·해상도 초과, 413 5MB 초과, 422 `image` 누락 (FastAPI 검증) |
+| 캐시 | `cache_hit=true`면 `inference_ms=null` — 추론을 **건너뛴 것**이지 0ms가 아님 |
+| Redis 장애 | 캐시 조회·저장을 건너뛰고 추론해서 200 (T-15 확인) |
+
+### API-03 / API-04 상세
+
+- **202는 작업 접수일 뿐 완료가 아니다.** 완료는 API-04 응답의 `status=done`으로 확인한다.
+- `top1`·`all`은 `done`일 때만, `error_message`는 `failed`일 때만 값이 있다.
+- 503: Redis(브로커)가 내려가 `classify_job.delay`가 실패하면 DB 행을 `failed`로 바꾸고 503을 돌려준다 (T-15).
+- 응답 필드명은 `all`이다. `all_scores`는 DB 컬럼명이다.
 
 ## 요청·응답 증빙
 
-전체 원본: [evidence/api_responses.json](evidence/api_responses.json) (2026-11-04 11:09:24 +0900, `requests` 라이브러리로 호출)
+전체 원본: [evidence/api_responses.json](evidence/api_responses.json) (2026-11-04T12:10:18+09:00, `scripts/bench_api.py`, Validation 이미지)
 
-A-02 동기, 처음 보내는 이미지 `test/healthy/healthy_test.0.jpg` → HTTP 200, 24.6 ms
+API-02 성공 — `val/healthy/healthy_val.0.jpg` → HTTP 200, 24.7 ms
 
 ```json
 {
   "model_id": "artifacts/beans_resnet18",
   "top1": {
-    "label": "healthy",
-    "score": 0.636943519115448
+    "label": "bean_rust",
+    "score": 0.4773241877555847
   },
   "all": [
     {
-      "label": "healthy",
-      "score": 0.636943519115448
-    },
-    {
       "label": "bean_rust",
-      "score": 0.24815838038921356
+      "score": 0.4773241877555847
     },
     {
       "label": "angular_leaf_spot",
-      "score": 0.11489810794591904
+      "score": 0.2892920970916748
+    },
+    {
+      "label": "healthy",
+      "score": 0.2333836853504181
     }
   ],
-  "inference_ms": 18.88,
+  "inference_ms": 19.63,
   "cache_hit": false
 }
 ```
 
-같은 파일을 다시 보냄 → HTTP 200, 3.6 ms, 캐시 HIT
+API-02 같은 파일 재요청 (캐시 HIT) → HTTP 200, 2.0 ms
 
 ```json
 {
   "model_id": "artifacts/beans_resnet18",
   "top1": {
-    "label": "healthy",
-    "score": 0.636943519115448
+    "label": "bean_rust",
+    "score": 0.4773241877555847
   },
   "all": [
     {
-      "label": "healthy",
-      "score": 0.636943519115448
-    },
-    {
       "label": "bean_rust",
-      "score": 0.24815838038921356
+      "score": 0.4773241877555847
     },
     {
       "label": "angular_leaf_spot",
-      "score": 0.11489810794591904
+      "score": 0.2892920970916748
+    },
+    {
+      "label": "healthy",
+      "score": 0.2333836853504181
     }
   ],
   "inference_ms": null,
@@ -76,7 +90,7 @@ A-02 동기, 처음 보내는 이미지 `test/healthy/healthy_test.0.jpg` → HT
 }
 ```
 
-A-03 비동기 접수 `test/bean_rust/bean_rust_test.10.jpg` → HTTP 202, 10.3 ms
+API-03 접수 — `val/bean_rust/bean_rust_val.10.jpg` → HTTP 202, 8.5 ms
 
 ```json
 {
@@ -86,7 +100,7 @@ A-03 비동기 접수 `test/bean_rust/bean_rust_test.10.jpg` → HTTP 202, 10.3 
 }
 ```
 
-A-04 조회 (관찰한 상태 변화: queued → done) → HTTP 200
+API-04 완료 (관찰한 상태: queued → done) → HTTP 200
 
 ```json
 {
@@ -94,43 +108,67 @@ A-04 조회 (관찰한 상태 변화: queued → done) → HTTP 200
   "status": "done",
   "model_id": "artifacts/beans_resnet18",
   "top1": {
-    "label": "angular_leaf_spot",
-    "score": 0.3825364112854004
+    "label": "bean_rust",
+    "score": 0.4297408163547516
   },
   "all": [
     {
-      "label": "angular_leaf_spot",
-      "score": 0.3825364112854004
+      "label": "bean_rust",
+      "score": 0.4297408163547516
     },
     {
       "label": "healthy",
-      "score": 0.3227664828300476
+      "score": 0.36878353357315063
     },
     {
-      "label": "bean_rust",
-      "score": 0.2946971356868744
+      "label": "angular_leaf_spot",
+      "score": 0.20147566497325897
     }
   ],
-  "inference_ms": 16.9,
+  "inference_ms": 18.32,
   "cache_hit": false,
   "error_message": null
 }
 ```
 
+API-02 오류 (텍스트 파일) → 400
+
+```json
+{
+  "detail": "올바른 이미지 파일이 아닙니다."
+}
+```
+
+API-04 오류 (없는 작업) → 404
+
+```json
+{
+  "detail": "해당 작업이 없습니다."
+}
+```
+
+API-03 오류 (Redis 정지) → 503 — [t15_redis_stopped.txt](evidence/t15_redis_stopped.txt)
+
+```json
+{"detail": "작업 큐 등록 실패: Redis 연결을 확인하세요."}
+```
+
 ## 실행 근거표
 
-| 검증 ID | 입력 | 실제 상태코드 | 증빙 |
+| 검증 ID | 테스트 입력 | 실제 상태코드 | 증빙 |
 |---|---|---:|---|
-| V-01 | GET `/health` | 200 | api_responses.json `error_cases.health` |
-| V-02 | POST sync, 콩잎 JPG 5장 (MISS) | 200 ×5 | api_responses.json `runs` |
-| V-03 | POST sync, 같은 5장 다시 (HIT) | 200 ×5 | 같은 파일 |
-| V-04 | POST async, 콩잎 JPG 5장 | 202 ×5 | 같은 파일 |
-| V-05 | GET `/api/async/jobs/{2~11}/` | 200, 전부 `done` | 같은 파일 |
-| V-06 | POST sync, 텍스트 파일 `not_image.txt` | 400 `올바른 이미지 파일이 아닙니다.` | `error_cases.txt_sync` |
-| V-07 | POST async, 텍스트 파일 | 400 (큐 등록 전 차단, DB 기록 없음) | `error_cases.txt_async` |
-| V-08 | POST sync, 6MB 파일 | 413 `5MB 이하 파일만 허용합니다.` | `error_cases.big_sync` |
-| V-09 | POST async, 6MB 파일 | 413 | `error_cases.big_async` |
-| V-10 | POST sync, 파일 없이 | 422 (FastAPI 검증 `Field required`) | `error_cases.no_file_sync` |
-| V-11 | GET `/api/async/jobs/999999/` | 404 `해당 작업이 없습니다.` | `error_cases.job_404` |
-| V-12 | POST async, Worker 정지 상태 | 202 → 5초 뒤에도 `queued` | [t10_worker_stopped.txt](evidence/t10_worker_stopped.txt) |
-| — | 503 큐 등록 실패 | 미실시 (Redis를 끈 상태 접수는 시험하지 않음) | — |
+| API-01-T01 | GET `/health` | 200 | api_responses.json `error_cases.health` |
+| API-02-T01 | Validation JPG 5장, 처음 보냄 (MISS) | 200 ×5 | api_responses.json `runs` |
+| API-02-T02 | 같은 5장 다시 (HIT) | 200 ×5 | 같은 파일 |
+| API-02-T03 | 텍스트 파일 `not_image.txt` | 400 | `error_cases.txt_sync` |
+| API-02-T04 | 6MB 파일 | 413 | `error_cases.big_sync` |
+| API-02-T05 | 파일 없이 POST | 422 | `error_cases.no_file_sync` |
+| API-02-T06 | Redis 정지 중 JPG | 200 (`cache_hit` false, 추론 진행) | [t15_redis_stopped.txt](evidence/t15_redis_stopped.txt) |
+| API-03-T01 | Validation JPG 5장 | 202 ×5 | api_responses.json |
+| API-03-T02 | 텍스트 파일 | 400 (큐 등록 전 차단, DB 행 없음) | `error_cases.txt_async` |
+| API-03-T03 | 6MB 파일 | 413 | `error_cases.big_async` |
+| API-03-T04 | Redis 정지 중 JPG | 503 (job 14 `failed`) | t15_redis_stopped.txt |
+| API-04-T01 | 접수된 job 2~11 | 200, 전부 `done` | api_responses.json |
+| API-04-T02 | `/api/async/jobs/999999/` | 404 | `error_cases.job_404` |
+| API-04-T03 | 업로드 파일이 사라진 job 13 | 200, `failed` + `error_message` | [t10_t16_worker_stopped.txt](evidence/t10_t16_worker_stopped.txt) |
+| WEB-01·02 | 화면에서 업로드·버튼 클릭 | 200 | [ui_sync_miss.png](evidence/ui_sync_miss.png), [ui_async_done.png](evidence/ui_async_done.png) |

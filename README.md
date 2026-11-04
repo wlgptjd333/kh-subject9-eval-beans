@@ -1,70 +1,95 @@
 # 콩잎 질병 분류 ResNet-18 · FastAPI 동기·비동기 서빙
 
-KH정보교육원 교과 9 평가과제입니다. 콩잎 사진 한 장을 올리면 `angular_leaf_spot`(각진잎반점병) · `bean_rust`(녹병) · `healthy`(정상) 중 하나로 분류하는 웹 서비스를 실행하고, 학습 결과와 시스템 동작을 산출물 8종으로 정리합니다.
+KH정보교육원 교과 9 평가과제입니다. 콩잎 사진 한 장을 `angular_leaf_spot`(각진잎반점병) · `bean_rust`(녹병) · `healthy`(정상) 중 하나로 분류하는 서비스를 실행하고, 학습 결과와 시스템 동작을 산출물 8종으로 정리합니다.
 
-> **진행 상태:** 데이터 배치, Head-only 학습, Docker 서비스 실행·실측·기능 테스트 완료 (2026-11-04). Test Accuracy는 아직입니다.
+> **진행 상태 (2026-11-04)** — 데이터 배치, Head-only 학습(필수), 평가 가이드 방식 서비스 실행·실측·기능 테스트 완료. 개선 실험(Full Fine-tuning 등)과 Test 1회 평가는 진행 중입니다.
 
-## 1. 구성
+## 1. 환경
 
 | 항목 | 내용 |
 |---|---|
-| 모델 | [`microsoft/resnet-18`](https://huggingface.co/microsoft/resnet-18) (ImageNet 1,000클래스) → 3클래스 출력층으로 교체 |
-| 학습 방식 | Head-only Fine-tuning (`--freeze-backbone`, Backbone 고정) |
+| OS | Windows 11 + WSL2 Ubuntu |
+| Python | 프로젝트 전용 가상환경 `.venv` (Python 3.11) |
+| Docker | Docker Desktop / Compose — **Redis 6379, PostgreSQL 5432만** 컨테이너로 실행 |
+| Python 프로세스 | FastAPI(uvicorn), Celery Worker — `.venv`에서 각각 별도 터미널 |
+| 모델 | [`microsoft/resnet-18`](https://huggingface.co/microsoft/resnet-18) → 3클래스 출력층으로 교체, Head-only Fine-tuning |
 | 데이터 | [AI-Lab-Makerere/beans](https://huggingface.co/datasets/AI-Lab-Makerere/beans) `train` / `validation` / `test` |
-| 학습 결과 | `artifacts/beans_resnet18/` (Git 제외) |
-| 서빙 | FastAPI 동기 API + Celery 비동기 작업 |
-| 저장소 | Redis (DB 1 캐시, DB 2 브로커, DB 3 결과) · PostgreSQL `image_jobs` |
-| 실행 | Docker Compose 한 번으로 `web` · `worker` · `redis` · `postgres` 기동 |
 
 ```mermaid
 flowchart LR
-    B["브라우저"] -->|HTTP| W["web: FastAPI"]
-    W <-->|Cache HIT/MISS| R[("redis")]
-    W -->|queued 기록| P[("postgres<br/>image_jobs")]
-    W -->|job_id| R
-    R -->|작업 전달| K["worker: Celery"]
-    K -->|MISS 추론| M["ResNet-18<br/>artifacts/beans_resnet18"]
+    B["브라우저"] -->|HTTP :8000| F
+    subgraph HOST["WSL2 · .venv"]
+      F["FastAPI (uvicorn)"]
+      W["Celery Worker"]
+      M["ResNet-18<br/>artifacts/beans_resnet18"]
+    end
+    subgraph D["Docker Compose"]
+      R[("Redis<br/>DB1 캐시 · DB2 브로커 · DB3 결과")]
+      P[("PostgreSQL<br/>image_jobs")]
+    end
+    F <-->|Cache HIT/MISS| R
+    F -->|동기 MISS 추론| M
+    F -->|queued 기록| P
+    F -->|job_id| R
+    R -->|작업 전달| W
     W -->|MISS 추론| M
-    K -->|done / failed| P
+    W -->|done / failed| P
 ```
 
-## 2. 데이터 준비
+## 2. 가상환경
 
-Hugging Face [데이터 파일 목록](https://huggingface.co/datasets/AI-Lab-Makerere/beans/tree/main/data)에서 `train.zip` · `validation.zip` · `test.zip`을 받아 아래처럼 배치합니다. **원본 `validation`은 `dataset/val/`에 넣습니다** (제공 학습 코드가 `val`을 읽음). `test`는 학습에 쓰지 않습니다.
+```bash
+cd ~/kh-subject9-eval-beans
+uv venv --python 3.11 .venv          # 또는 python3.11 -m venv .venv
+source .venv/bin/activate
+uv pip install -r requirements.txt   # 또는 pip install -r requirements.txt
+```
+
+## 3. 데이터 준비
+
+```bash
+python scripts/prepare_data.py --download
+```
+
+Hugging Face의 `data/train.zip` · `validation.zip` · `test.zip`을 `beans_source/zips/`에 받아 원본을 `beans_source/`에 보존하고, 제공 코드가 읽는 `dataset/`에 배치합니다. **원본 `validation` → `dataset/val`** (제공 학습 코드가 `val`을 읽음). `test`는 학습·모델 선택·시연에 쓰지 않습니다. 클래스별 장수와 중복 검사 결과는 `reports/data/dataset_check.json`.
 
 ```text
 dataset/
-├── train/{angular_leaf_spot,bean_rust,healthy}/
-├── val/{angular_leaf_spot,bean_rust,healthy}/     ← 원본 validation
-└── test/{angular_leaf_spot,bean_rust,healthy}/
+├── train/{angular_leaf_spot,bean_rust,healthy}/   1,034장
+├── val/{angular_leaf_spot,bean_rust,healthy}/       133장  ← 원본 validation
+└── test/{angular_leaf_spot,bean_rust,healthy}/      128장
 ```
 
-## 3. 학습 (Head-only, 필수)
+## 4. 학습·평가
 
 ```bash
 python -m training.finetune --data dataset --output artifacts/beans_resnet18 --epochs 3 --batch-size 8 --freeze-backbone
-```
-
-로컬 `.venv`가 없으면 Docker로도 학습할 수 있습니다: `docker compose run --rm trainer`
-
-결과 파일: `config.json`, `model.safetensors`, `preprocessor_config.json`, `training_report.json`
-
-평가 (추가 스크립트, 클래스별 Precision·Recall·혼동행렬):
-
-```bash
 python -m training.evaluate --model artifacts/beans_resnet18 --split val
 ```
 
-Test는 최종 모델을 Val로 고른 뒤 `--split test --final`로 한 번만 씁니다 (실행 기록은 `reports/data/test_runs.log`).
+- 학습은 제공 코드 그대로 (Head-only, 필수). 결과: `config.json`, `model.safetensors`, `preprocessor_config.json`, `training_report.json`
+- `training/evaluate.py`는 **추가 스크립트**로, 클래스별 Precision·Recall·혼동행렬을 계산합니다. Test는 최종 모델을 Val로 고른 뒤 `--split test --final`로 한 번만 쓰며, 실행 기록이 `reports/data/test_runs.log`에 남습니다.
 
-## 4. 실행
+## 5. 구동 순서 (평가 가이드 방식)
 
 ```bash
-mkdir -p artifacts media/jobs
-cp .env.example .env              # MODEL_PATH=artifacts/beans_resnet18
-docker compose up -d --build
-docker compose ps
-curl http://127.0.0.1:8000/health
+cp .env.example .env                                   # MODEL_PATH=artifacts/beans_resnet18
+docker compose up -d redis postgres                    # Redis·PostgreSQL만
+docker compose exec redis redis-cli ping               # PONG
+```
+
+터미널 1 (Worker):
+
+```bash
+source .venv/bin/activate
+celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1
+```
+
+터미널 2 (FastAPI):
+
+```bash
+source .venv/bin/activate
+uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
 | 주소 | 역할 |
@@ -73,32 +98,39 @@ curl http://127.0.0.1:8000/health
 | http://127.0.0.1:8000/vision/async/ | 비동기 분류 화면 |
 | http://127.0.0.1:8000/docs | Swagger API 문서 |
 
-모델 경로를 바꾼 뒤에는 `docker compose up -d --force-recreate web worker`. `docker compose down -v`는 DB·Redis 볼륨을 지우므로 쓰지 않습니다.
+- `compose.yaml`에는 제공 문서 02의 `web`·`worker`·`trainer` 서비스도 있지만, 평가 가이드 구조에 맞춰 **`redis postgres`만 띄웁니다.** 02 방식(전부 Docker)으로도 실행해 본 기록은 [docker_mode_02](reports/evidence/docker_mode_02/)에 따로 보관했습니다.
+- 모델 경로를 바꾸면 FastAPI와 Worker를 모두 재시작합니다. `docker compose down -v`는 DB·Redis 볼륨을 지우므로 쓰지 않습니다.
 
-## 5. 확인할 응답
+## 6. 확인할 응답
 
 - `GET /health` → `{"status":"ok"}`
 - `POST /api/sync/classify/` → 200, `top1`, `all`, `inference_ms`, `cache_hit`
-- `POST /api/async/classify/` → 202, `job_id`, `check_url` / `GET /api/async/jobs/{job_id}/` → `status=done`
-- PostgreSQL 기록: [산출물 4](reports/04_DB_구조_작업이력.md)의 조회 SQL
-- 모의 테스트: `docker compose exec web python -m pytest -q tests/test_api.py` (실제 모델·Redis·Celery 동작은 검증하지 않음). 문서의 `pytest -q …`는 `No module named 'ai'`로 실패 — [E-02](reports/07_기능테스트_오류분석.md)
+- `POST /api/async/classify/` → **202**(접수), `job_id`, `check_url` → `GET /api/async/jobs/{job_id}/` → `status=done`
+- PostgreSQL `image_jobs` 조회 SQL: [산출물 4](reports/04_DB_구조_작업이력.md)
+- 모의 테스트: `python -m pytest -q tests/test_api.py` (가짜 모델·SQLite, 실환경 검증 아님). 제공 문서의 `pytest -q …`는 `No module named 'ai'`로 실패 — [E-02](reports/07_기능테스트_오류분석.md)
 
-## 6. 결과 요약
+## 7. 측정·캡처 스크립트 (추가)
+
+| 스크립트 | 내용 |
+|---|---|
+| `scripts/prepare_data.py` | 데이터 다운로드·원본 보존·`dataset/` 배치·장수·SHA-256 중복 검사 |
+| `scripts/bench_api.py` | 서비스 실행 중 Val 이미지로 동기·비동기 × MISS·HIT 측정, 오류 입력 → `reports/data/timings.csv`, `reports/evidence/api_responses.json` |
+| `scripts/capture_ui.py` | 헤드리스 Chrome(Playwright)으로 화면에서 실제 업로드·버튼 클릭 후 캡처. `pip install playwright` 별도 필요 |
+
+## 8. 결과 요약
 
 | 항목 | 결과 |
 |---|---|
-| Train / Validation / Test 이미지 수 | 1,034 / 133 / 128 |
-| Best Validation Accuracy (Head-only, 3 Epoch) | 0.7669 (Macro F1 0.764, 가장 약한 클래스 bean_rust Recall 0.6444) |
-| Test Accuracy | 미측정 — 개선 실험 후 최종 모델로 한 번만 측정 예정 |
-| 동기 MISS HTTP 완료 (중앙값 5회) | 20.4 ms (추론 14.7 ms) |
-| 동기 HIT HTTP 완료 (중앙값 5회) | 1.9 ms |
-| 비동기 MISS HTTP 접수 (중앙값 5회) | 9.9 ms |
-| 비동기 MISS 최종 확인 (중앙값 5회, 0.1초 조회) | 120.7 ms |
-| 기능 테스트 (실환경) | 15개 PASS (화면 버튼 2개 포함), 2개 미실시 |
+| Train / Validation / Test | 1,034 / 133 / 128 (SHA-256 중복 0) |
+| Head-only Best Validation Accuracy (3 Epoch) | 0.7669 — Macro F1 0.764, 가장 약한 클래스 bean_rust Recall 0.6444 |
+| Test Accuracy | 미측정 — 최종 모델 선정 후 1회 측정 예정 |
+| 동기 MISS HTTP 완료 (중앙값 5회) | 22.8 ms (추론 18.0 ms) |
+| 동기 HIT HTTP 완료 | 1.7 ms |
+| 비동기 MISS HTTP 접수 | 8.5 ms |
+| 비동기 MISS 최종 확인 (0.1초 조회) | 117.1 ms |
+| 기능 테스트 (실환경) | 18개 PASS (Redis 장애 503·작업 실패 failed 포함) |
 
-측정 환경: Docker Desktop + WSL2, i7-12700, 서비스는 CPU 추론. 첫 요청(모델 로딩 약 2.3초)은 제외.
-
-## 7. 산출물
+## 9. 산출물
 
 | 번호 | 문서 |
 |---|---|
@@ -107,27 +139,18 @@ curl http://127.0.0.1:8000/health
 | 3 | [API 명세서](reports/03_API_명세서.md) |
 | 4 | [DB 구조·작업이력](reports/04_DB_구조_작업이력.md) |
 | 5 | [AI 버튼 처리흐름](reports/05_AI버튼_처리흐름.md) |
-| 6 | [성능비교 보고서](reports/06_성능비교_보고서.md) · 원본 `reports/data/timings.csv` |
+| 6 | [성능비교 보고서](reports/06_성능비교_보고서.md) · 원본 [timings.csv](reports/data/timings.csv) |
 | 7 | [기능테스트·오류분석](reports/07_기능테스트_오류분석.md) |
 | 8 | [최종 기술보고서](reports/08_최종기술보고서.md) |
 
-캡처는 `reports/evidence/`, 도표는 `reports/figures/`, 측정 원본은 `reports/data/`에 둡니다.
+증빙 `reports/evidence/`, 도표 `reports/figures/`, 측정 원본 `reports/data/`.
 
-## 8. 제공 코드 출처
+## 10. 코드 출처
 
-평가 자료 `01_Image_Classification_ResNet18_FastAPI_FineTuning`, `02_FastAPI_ResNet18_Redis_Celery_동기비동기`의 코드를 그대로 옮겼습니다 (02가 같은 파일을 교체하라고 한 곳은 02 버전). 01 단독용 루트 `test_api.py`는 02 지시에 따라 `tests/test_api.py`로 대체했습니다.
+`ai/`, `training/finetune.py`, `templates/`, `static/`, `main.py`, `tests/test_api.py`, `requirements.txt`, `compose.yaml`, `Dockerfile`, `.dockerignore`, `.env.example`, `.gitignore`는 평가 자료 01·02의 제공 코드를 그대로 옮겼습니다 (02가 같은 파일을 교체하라고 한 곳은 02 버전, 01 단독용 루트 `test_api.py`는 02 지시에 따라 `tests/test_api.py`로 대체). `.gitignore`에는 `beans_source/` 한 줄만 추가했습니다.
 
-수업 실습 버전([kh-vision-ai · fastapi_resnet18](https://github.com/wlgptjd333/kh-vision-ai/tree/main/subject09_machinevision/fastapi_resnet18))과 비교하면 `ai/`·`templates/`·`static/`·`main.py`·`requirements.txt`는 같고, 달라진 점은 다음과 같습니다.
+**이 저장소에서 추가한 것** (제공 코드 아님): `training/evaluate.py`, `scripts/` 3개, `reports/`.
 
-| 파일 | 변경 |
-|---|---|
-| `Dockerfile`, `.dockerignore` | 새로 추가 (CPU용 PyTorch 2.5.1) |
-| `compose.yaml` | Redis·PostgreSQL에 `web`·`worker`·`trainer` 서비스 추가 |
-| `.env.example` | `MODEL_PATH=artifacts/beans_resnet18` (옛 `cap_quality` 예시 제거) |
-| `training/finetune.py` | 학습 로직 동일, 기본 출력 경로와 줄바꿈만 다름 |
-| `tests/test_api.py` | 가짜 라벨을 콩잎 클래스명으로 변경 |
-| `training/evaluate.py` | **제공 코드 아님 — 이 저장소에서 추가.** `finetune.py`의 데이터 읽기를 그대로 써서 클래스별 지표·혼동행렬 계산 |
+## 11. Git에 올리지 않는 것
 
-## 9. Git에 올리지 않는 것
-
-`.env`, `dataset/`, `artifacts/` 안의 모델, `media/jobs/` 안의 업로드 파일. `compose.yaml`의 DB 비밀번호는 로컬 Docker 실습용 기본값입니다. 데이터셋은 Hugging Face 링크에서 받습니다.
+`.venv/`, `.env`, `dataset/`, `beans_source/`, `artifacts/` 안의 모델, `media/jobs/` 안의 업로드 파일. `compose.yaml`의 DB 비밀번호는 로컬 실습용 기본값입니다. 데이터는 3절 스크립트로 Hugging Face에서 받습니다.
