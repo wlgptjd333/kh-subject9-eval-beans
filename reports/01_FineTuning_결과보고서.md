@@ -65,8 +65,42 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 - 저장된 모델: **Epoch 2** 가중치 — 제공 코드는 `acc > best_acc`일 때만 저장하므로, 같은 값인 Epoch 3은 저장하지 않음
 - Train Loss는 3 Epoch 동안 계속 감소 → 3 Epoch에서 아직 수렴하지 않았을 가능성
 - Test Accuracy: 미측정 (제공 코드에 Test 평가 절차 없음)
-- 클래스별 Precision·Recall·혼동행렬: 미측정 (제공 코드가 계산하지 않음)
+- 클래스별 Precision·Recall·혼동행렬: 아래 3-1 (Val 기준, 추가 스크립트)
 - 증빙: [학습 로그](evidence/train_log_head_only.txt), [training_report.json 사본](data/training_report_head_only.json)
+
+### 3-1. Validation 세부 평가 (추가 스크립트 `training/evaluate.py`)
+
+제공 코드는 정확도만 출력하므로, 같은 데이터 읽기·전처리(`finetune.py`의 `FolderImages`)를 그대로 쓰는 평가 스크립트를 **새 파일로 추가**했다. 제공 코드는 고치지 않았다.
+
+```bash
+python -m training.evaluate --model artifacts/beans_resnet18 --split val
+```
+
+- 데이터: `dataset/val` 133장 / 모델: `artifacts/beans_resnet18` / 장치: cuda
+- Accuracy: **0.7669** (102/133), Macro F1: 0.764
+- 평균 1순위 점수: 맞힌 것 0.6071, 틀린 것 0.504
+
+| 클래스 | Precision | Recall | F1 | 장수 |
+|---|---:|---:|---:|---:|
+| angular_leaf_spot | 0.7857 | 0.75 | 0.7674 | 44 |
+| bean_rust | 0.725 | 0.6444 | 0.6824 | 45 |
+| healthy | 0.7843 | 0.9091 | 0.8421 | 44 |
+
+혼동행렬 (행 = 정답, 열 = 예측):
+
+| 정답 \ 예측 | angular_leaf_spot | bean_rust | healthy |
+|---|---:|---:|---:|
+| angular_leaf_spot | 33 | 8 | 3 |
+| bean_rust | 8 | 29 | 8 |
+| healthy | 1 | 3 | 40 |
+
+- 확인: Accuracy 0.7669(102/133)가 학습 로그의 Best Val Accuracy와 같음 → 평가 조건이 학습 때와 일치
+- 가장 약한 클래스: **bean_rust** (Recall 0.6444). 녹병 잎 45장 중 8장은 angular_leaf_spot, 8장은 healthy로 예측
+- 많이 헷갈린 쌍: angular_leaf_spot→bean_rust 8장, bean_rust→healthy 8장, bean_rust→angular_leaf_spot 8장, angular_leaf_spot→healthy 3장
+- healthy는 Recall 0.9091로 가장 잘 맞힘. 병든 잎을 healthy로 놓친 경우는 11장(angular 3 + rust 8)
+- 틀린 예측의 평균 1순위 점수(0.504)가 맞힌 예측(0.6071)보다 낮음 → 점수가 낮으면 사람이 확인하는 규칙의 근거가 될 수 있음 (제안, 미구현)
+- 틀린 이미지 31장 목록: [eval_beans_resnet18_val.json](data/eval_beans_resnet18_val.json) `errors`
+- Test: **아직 쓰지 않음.** 개선 실험을 Val로 마친 뒤 최종 모델을 정하고 `--split test --final`로 한 번만 평가한다. Test 실행 기록은 `reports/data/test_runs.log`에 자동으로 남는다
 
 ## 4. 생성 파일 확인
 
@@ -108,4 +142,4 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 - 판정: 제공 코드로 Head-only Fine-tuning을 실행해 3클래스 모델을 만들었고, 서비스에서 이 모델이 쓰이는 것을 확인함
 - Best Validation Accuracy 0.7669는 3 Epoch, Backbone 고정 조건의 값. Train Loss가 계속 내려가는 중이라 Epoch를 늘리면 바뀔 수 있음 (미실험)
 - 1순위 점수가 0.38~0.85로 낮은 편 — 확신이 약한 예측이 많음. 서비스 표본에서 틀린 2장은 점수 0.383, 0.500
-- 한계: Test Accuracy, 클래스별 지표, 혼동행렬, Full Fine-tuning 비교 모두 미측정
+- 한계: Test Accuracy와 Full Fine-tuning 비교는 미측정. 클래스별 지표·혼동행렬은 Val 기준으로만 측정

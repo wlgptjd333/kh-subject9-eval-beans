@@ -49,6 +49,14 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 
 결과 파일: `config.json`, `model.safetensors`, `preprocessor_config.json`, `training_report.json`
 
+평가 (추가 스크립트, 클래스별 Precision·Recall·혼동행렬):
+
+```bash
+python -m training.evaluate --model artifacts/beans_resnet18 --split val
+```
+
+Test는 최종 모델을 Val로 고른 뒤 `--split test --final`로 한 번만 씁니다 (실행 기록은 `reports/data/test_runs.log`).
+
 ## 4. 실행
 
 ```bash
@@ -80,8 +88,8 @@ curl http://127.0.0.1:8000/health
 | 항목 | 결과 |
 |---|---|
 | Train / Validation / Test 이미지 수 | 1,034 / 133 / 128 |
-| Best Validation Accuracy (Head-only, 3 Epoch) | 0.7669 |
-| Test Accuracy | 미측정 (제공 코드에 Test 평가 없음) |
+| Best Validation Accuracy (Head-only, 3 Epoch) | 0.7669 (Macro F1 0.764, 가장 약한 클래스 bean_rust Recall 0.6444) |
+| Test Accuracy | 미측정 — 개선 실험 후 최종 모델로 한 번만 측정 예정 |
 | 동기 MISS HTTP 완료 (중앙값 5회) | 20.4 ms (추론 14.7 ms) |
 | 동기 HIT HTTP 완료 (중앙값 5회) | 1.9 ms |
 | 비동기 MISS HTTP 접수 (중앙값 5회) | 9.9 ms |
@@ -118,6 +126,7 @@ curl http://127.0.0.1:8000/health
 | `.env.example` | `MODEL_PATH=artifacts/beans_resnet18` (옛 `cap_quality` 예시 제거) |
 | `training/finetune.py` | 학습 로직 동일, 기본 출력 경로와 줄바꿈만 다름 |
 | `tests/test_api.py` | 가짜 라벨을 콩잎 클래스명으로 변경 |
+| `training/evaluate.py` | **제공 코드 아님 — 이 저장소에서 추가.** `finetune.py`의 데이터 읽기를 그대로 써서 클래스별 지표·혼동행렬 계산 |
 
 ## 9. Git에 올리지 않는 것
 
