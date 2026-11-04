@@ -2,7 +2,7 @@
 
 KH정보교육원 교과 9 평가과제입니다. 콩잎 사진 한 장을 `angular_leaf_spot`(각진잎반점병) · `bean_rust`(녹병) · `healthy`(정상) 중 하나로 분류하는 서비스를 실행하고, 학습 결과와 시스템 동작을 산출물 8종으로 정리합니다.
 
-> **진행 상태 (2026-11-04)** — 데이터 배치, Head-only 학습(필수), 평가 가이드 방식 서비스 실행·실측·기능 테스트 완료. 개선 실험(Full Fine-tuning 등)과 Test 1회 평가는 진행 중입니다.
+> **진행 상태 (2026-11-04)** — 데이터 배치, Head-only 학습(필수), 평가 가이드 방식 서비스 실행·실측·기능 테스트, 개선 실험(E1·E2), 최종 모델 Test 1회 평가 완료.
 
 ## 1. 환경
 
@@ -67,6 +67,13 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 python -m training.evaluate --model artifacts/beans_resnet18 --split val
 ```
 
+개선 실험 (제공 코드 수정 없이 실행 옵션만):
+
+```bash
+python -m training.finetune --data dataset --output artifacts/beans_resnet18_head10 --epochs 10 --batch-size 8 --freeze-backbone   # E1
+python -m training.finetune --data dataset --output artifacts/beans_resnet18_full --epochs 5 --batch-size 8 --lr 0.00005           # E2 Full Fine-tuning
+```
+
 - 학습은 제공 코드 그대로 (Head-only, 필수). 결과: `config.json`, `model.safetensors`, `preprocessor_config.json`, `training_report.json`
 - `training/evaluate.py`는 **추가 스크립트**로, 클래스별 Precision·Recall·혼동행렬을 계산합니다. Test는 최종 모델을 Val로 고른 뒤 `--split test --final`로 한 번만 쓰며, 실행 기록이 `reports/data/test_runs.log`에 남습니다.
 
@@ -123,7 +130,8 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 |---|---|
 | Train / Validation / Test | 1,034 / 133 / 128 (SHA-256 중복 0) |
 | Head-only Best Validation Accuracy (3 Epoch) | 0.7669 — Macro F1 0.764, 가장 약한 클래스 bean_rust Recall 0.6444 |
-| Test Accuracy | 미측정 — 최종 모델 선정 후 1회 측정 예정 |
+| 개선 실험 Val Accuracy | E1 Head-only 10 Epoch 0.8947 / **E2 Full Fine-tuning 0.985** (최종 선정) |
+| Test Accuracy (선정 후 1회) | E0 0.7188 → **E2 0.9766** (125/128) |
 | 동기 MISS HTTP 완료 (중앙값 5회) | 22.8 ms (추론 18.0 ms) |
 | 동기 HIT HTTP 완료 | 1.7 ms |
 | 비동기 MISS HTTP 접수 | 8.5 ms |

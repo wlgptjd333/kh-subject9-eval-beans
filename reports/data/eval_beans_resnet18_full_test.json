@@ -1,0 +1,79 @@
+{
+  "model": "artifacts/beans_resnet18_full",
+  "data": "dataset/test",
+  "device": "cuda",
+  "evaluated_at": "2026-11-04T12:39:23+09:00",
+  "count": 128,
+  "correct": 125,
+  "accuracy": 0.9766,
+  "macro_f1": 0.9765,
+  "per_class": {
+    "angular_leaf_spot": {
+      "precision": 0.9556,
+      "recall": 1.0,
+      "f1": 0.9773,
+      "support": 43
+    },
+    "bean_rust": {
+      "precision": 1.0,
+      "recall": 0.9302,
+      "f1": 0.9639,
+      "support": 43
+    },
+    "healthy": {
+      "precision": 0.9767,
+      "recall": 1.0,
+      "f1": 0.9882,
+      "support": 42
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "angular_leaf_spot",
+      "bean_rust",
+      "healthy"
+    ],
+    "rows_true_cols_pred": [
+      [
+        43,
+        0,
+        0
+      ],
+      [
+        2,
+        40,
+        1
+      ],
+      [
+        0,
+        0,
+        42
+      ]
+    ]
+  },
+  "mean_top1_score": {
+    "correct": 0.9593,
+    "wrong": 0.754
+  },
+  "errors": [
+    {
+      "file": "bean_rust/bean_rust_test.15.jpg",
+      "true": "bean_rust",
+      "pred": "angular_leaf_spot",
+      "score": 0.9046
+    },
+    {
+      "file": "bean_rust/bean_rust_test.36.jpg",
+      "true": "bean_rust",
+      "pred": "angular_leaf_spot",
+      "score": 0.6487
+    },
+    {
+      "file": "bean_rust/bean_rust_test.37.jpg",
+      "true": "bean_rust",
+      "pred": "healthy",
+      "score": 0.7088
+    }
+  ],
+  "split": "test"
+}

@@ -6,7 +6,7 @@
 - 입력 데이터: `dataset/train`, `dataset/val` / 최종 보관: `dataset/test` (학습·모델 선택에 사용하지 않음)
 - 모델 저장 위치: `artifacts/beans_resnet18/`
 - 학습 환경: 프로젝트 전용 `.venv` (Python 3.11.17, torch 2.15.0+cu132, transformers 4.57.6), GPU RTX 3060
-- 실험 상태: Head-only 학습 완료 (2026-11-04)
+- 실험 상태: Head-only 학습(필수) + 개선 실험 E1·E2 + 최종 모델 Test 1회 평가 완료 (2026-11-04)
 
 ## 1. 데이터 구성
 
@@ -65,8 +65,8 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 
 - Best Validation Accuracy: **0.7669** (133장 중 102장)
 - 저장된 모델: **Epoch 2** 가중치 — 제공 코드는 `acc > best_acc`일 때만 저장, 같은 값인 Epoch 3은 저장 안 함
-- Train Loss가 3 Epoch 내내 감소 → 아직 수렴 전일 가능성 (개선 실험 E1에서 확인)
-- Test Accuracy: **미측정** (제공 코드에 Test 평가 없음, 최종 모델 선정 후 1회 측정 예정)
+- Train Loss가 3 Epoch 내내 감소 → 아직 수렴 전 (E1에서 10 Epoch로 확인, §6)
+- Test Accuracy: 0.7188 — 제공 코드에는 Test 평가가 없어 추가 스크립트로 최종 모델 선정 뒤 1회 측정 (§6-1)
 - 증빙: [학습 로그](evidence/train_log_head_only.txt), [training_report.json 사본](data/training_report_head_only.json), [환경·모델 폴더](evidence/train_env_and_model.txt)
 
 **재현성 확인:** 같은 명령을 다른 Python 환경(수업용 가상환경)에서 먼저 실행했던 모델과, 프로젝트 전용 `.venv`에서 다시 학습한 모델의 `model.safetensors` SHA-256이 같다(`c4ba88e1…`, 가중치 차이 0.0). seed 42 고정과 같은 패키지 버전 덕분이다. 이 보고서의 모든 수치는 `.venv`에서 다시 만든 것이다 ([E-04](07_기능테스트_오류분석.md)).
@@ -142,16 +142,73 @@ python -m training.evaluate --model artifacts/beans_resnet18 --split val
 
 ## 6. 개선 실험 (평가 가이드 6-1, 같은 Validation 133장 기준)
 
-| 실험 | 제공 코드 변경 | 실행 설정 | Validation Accuracy | 상태 |
-|---|---|---|---:|---|
-| E0: Head-only 기준선 | 없음 | `--freeze-backbone`, 3 Epoch, lr 2e-4 | 0.7669 | 실행 (필수) |
-| E1: Head-only 10 Epoch | 없음 | `--freeze-backbone --epochs 10` → `artifacts/beans_resnet18_head10` | 미측정 | 실행 예정 |
-| E2: Full Fine-tuning | 없음 | 옵션 제외, `--lr 0.00005` → `artifacts/beans_resnet18_full` | 미측정 | 실행 예정 (선택) |
+모든 실험은 제공 `training/finetune.py`를 **고치지 않고 실행 옵션만** 바꿨다. 결과는 각각 다른 폴더에 저장해 E0(`artifacts/beans_resnet18`)를 덮어쓰지 않았다. 학습은 모두 프로젝트 `.venv`, GPU.
 
-Epoch·학습률 변경은 실행 옵션 차이이며 제공 코드 수정이 아니다. 각 결과는 별도 폴더에 저장해 E0를 덮어쓰지 않는다. 최종 모델은 Validation으로만 고르고, Test는 그 뒤 E0와 최종 모델을 한 번에 측정한다.
+| 실험 | 제공 코드 변경 | 실행 설정 | Best Epoch | Val Accuracy | Val Macro F1 | Val Recall (angular / rust / healthy) | 결론 |
+|---|---|---|---:|---:|---:|---|---|
+| E0 Head-only 기준선 | 없음 | `--freeze-backbone`, 3 Epoch, lr 2e-4 | 2 | 0.7669 | 0.764 | 0.75 / 0.6444 / 0.9091 | 기준선 (필수) |
+| E1 Head-only 10 Epoch | 없음 | `--freeze-backbone --epochs 10` → `artifacts/beans_resnet18_head10` | 8 | 0.8947 | 0.8953 | 0.8864 / 0.8667 / 0.9318 | E0 대비 +12.78%p |
+| E2 Full Fine-tuning | 없음 | 옵션 없음(전체 학습), `--epochs 5 --lr 0.00005` → `artifacts/beans_resnet18_full` | 4 | **0.985** | **0.985** | 1.0 / 0.9556 / 1.0 | E0 대비 +21.81%p, **최종 선정** |
+
+![Epoch별 Validation Accuracy](figures/val_accuracy_experiments.svg)
+
+- E1: Backbone을 고정한 채 Epoch만 늘려도 Val이 0.7669 → 0.8947. E0는 3 Epoch에서 덜 학습된 상태였다 (Loss 0.71 → 10 Epoch 0.49). 8 Epoch 이후 Val이 0.8872, 0.8722로 내려가 더 늘려도 이득이 작다
+- E2: Backbone까지 학습하니 1 Epoch 만에 Val 0.9699. 녹병 Recall 0.6444 → 0.9556, 병든 잎을 healthy로 놓친 경우 11장 → 1장
+- E2는 학습률을 제공 기본값(2e-4)의 1/4인 5e-5로 낮췄다. 사전학습된 Backbone 가중치를 크게 망가뜨리지 않기 위해서다 (평가 가이드 6-1 예시와 같은 값)
+- 세부 지표: [E1 Val](data/eval_beans_resnet18_head10_val.json), [E2 Val](data/eval_beans_resnet18_full_val.json), 학습 로그 [E1](evidence/train_log_e1_head10.txt) · [E2](evidence/train_log_e2_full.txt)
+
+### 6-1. 최종 모델 선정과 Test 1회 평가
+
+선정 기준(Validation Accuracy 최고, 같으면 Macro F1)과 결과를 **Test를 보기 전에** [model_selection.md](data/model_selection.md)로 커밋했다 (커밋 `1853f29`). 선정: **E2**. 그 뒤 E0(필수 기준선)와 E2(최종)만 Test로 각 1회 평가했다. E1은 선정되지 않아 Test에 쓰지 않았다.
+
+```bash
+python -m training.evaluate --model artifacts/beans_resnet18 --split test --final
+python -m training.evaluate --model artifacts/beans_resnet18_full --split test --final
+```
+
+| 모델 | Test Accuracy | Test Macro F1 | Test Recall (angular / rust / healthy) | Val Accuracy (비교) |
+|---|---:|---:|---|---:|
+| E0 Head-only | 0.7188 (92/128) | 0.7109 | 0.6977 / 0.5349 / 0.9286 | 0.7669 |
+| E2 Full Fine-tuning (최종) | **0.9766** (125/128) | **0.9765** | 1.0 / 0.9302 / 1.0 | 0.985 |
+
+E2 Test 세부:
+
+- 데이터: `dataset/test` 128장 / 모델: `artifacts/beans_resnet18_full` / 장치: cuda
+- Accuracy: **0.9766** (125/128), Macro F1: 0.9765
+- 평균 1순위 점수: 맞힌 것 0.9593, 틀린 것 0.754
+
+| 클래스 | Precision | Recall | F1 | 장수 |
+|---|---:|---:|---:|---:|
+| angular_leaf_spot | 0.9556 | 1.0 | 0.9773 | 43 |
+| bean_rust | 1.0 | 0.9302 | 0.9639 | 43 |
+| healthy | 0.9767 | 1.0 | 0.9882 | 42 |
+
+혼동행렬 (행 = 정답, 열 = 예측):
+
+| 정답 \ 예측 | angular_leaf_spot | bean_rust | healthy |
+|---|---:|---:|---:|
+| angular_leaf_spot | 43 | 0 | 0 |
+| bean_rust | 2 | 40 | 1 |
+| healthy | 0 | 0 | 42 |
+
+- E2는 Test에서도 0.9766으로 Val(0.985)과 비슷 → Validation으로 고른 결과가 처음 보는 데이터에서도 유지됨
+- E0 → E2: Test Accuracy 0.7188 → 0.9766, **25.78%p** 상승 (비율 상승률이 아님)
+- E2가 틀린 3장은 모두 bean_rust (2장 → angular_leaf_spot, 1장 → healthy). 목록: [eval_beans_resnet18_full_test.json](data/eval_beans_resnet18_full_test.json) `errors`
+- Test 실행 기록 ([test_runs.log](data/test_runs.log)) — 2회뿐:
+
+```text
+2026-11-04T12:39:19+09:00	artifacts/beans_resnet18	accuracy=0.7188
+2026-11-04T12:39:23+09:00	artifacts/beans_resnet18_full	accuracy=0.9766
+```
+
+- 주의: 처음 02 방식 측정 때 E0로 Test 이미지 15장의 예측을 본 적이 있다 ([E-05](07_기능테스트_오류분석.md)). 이후 모델·설정 선택은 Validation만으로 했다.
+
+### 6-2. 서비스 모델
+
+평가 가이드는 서비스 모델 경로를 `artifacts/beans_resnet18`(E0)로 통일하라고 하므로, 산출물 2~7의 서비스 실측은 **E0** 기준이다. E2를 서비스에 쓰려면 `.env`의 `MODEL_PATH=artifacts/beans_resnet18_full`로 바꾸고 FastAPI·Worker를 재시작하면 된다 (구조가 같은 ResNet-18이라 추론 시간은 거의 같을 것으로 예상, 미측정).
 
 ## 7. 결과 판정과 한계
 
-- 완료: 제공 코드로 Head-only Fine-tuning 실행, 3클래스 모델 생성, 서비스에서 이 모델 사용 확인
-- 1순위 점수가 낮은 편(틀린 예측 평균 0.504) — 확신이 약한 예측이 많음
-- 한계: Test Accuracy·개선 실험 미완료, 거의 같은 사진 중복은 미점검, 단일 학습 seed
+- 완료: 제공 코드로 Head-only Fine-tuning(필수) 실행, 3클래스 모델 생성, 서비스에서 이 모델 사용 확인
+- 개선: 실행 옵션만 바꾼 Full Fine-tuning(E2)이 Validation 0.985, Test 0.9766로 가장 좋음 (E0 Test 0.7188)
+- 한계: 실험마다 학습 1회(seed 42 하나), 거의 같은 사진 중복은 미점검, Test 128장은 작은 표본이라 1장 = 0.78%p

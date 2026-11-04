@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" font-family="sans-serif">
+<rect width="760" height="420" fill="#fff"/>
+<text x="20" y="28" font-size="17" font-weight="bold" fill="#222">Epoch별 Validation Accuracy (같은 Validation 133장)</text>
+<text x="20" y="46" font-size="12" fill="#555">제공 training/finetune.py, 실행 옵션만 변경 — 원본: reports/data/training_report_*.json</text>
+<line x1="70" y1="350.0" x2="710" y2="350.0" stroke="#e3e3e3"/>
+<text x="62" y="354.0" font-size="11" text-anchor="end" fill="#555">0.6</text>
+<line x1="70" y1="277.5" x2="710" y2="277.5" stroke="#e3e3e3"/>
+<text x="62" y="281.5" font-size="11" text-anchor="end" fill="#555">0.7</text>
+<line x1="70" y1="205.0" x2="710" y2="205.0" stroke="#e3e3e3"/>
+<text x="62" y="209.0" font-size="11" text-anchor="end" fill="#555">0.8</text>
+<line x1="70" y1="132.5" x2="710" y2="132.5" stroke="#e3e3e3"/>
+<text x="62" y="136.5" font-size="11" text-anchor="end" fill="#555">0.9</text>
+<line x1="70" y1="60.0" x2="710" y2="60.0" stroke="#e3e3e3"/>
+<text x="62" y="64.0" font-size="11" text-anchor="end" fill="#555">1.0</text>
+<text x="70.0" y="368" font-size="11" text-anchor="middle" fill="#555">1</text>
+<text x="141.1" y="368" font-size="11" text-anchor="middle" fill="#555">2</text>
+<text x="212.2" y="368" font-size="11" text-anchor="middle" fill="#555">3</text>
+<text x="283.3" y="368" font-size="11" text-anchor="middle" fill="#555">4</text>
+<text x="354.4" y="368" font-size="11" text-anchor="middle" fill="#555">5</text>
+<text x="425.6" y="368" font-size="11" text-anchor="middle" fill="#555">6</text>
+<text x="496.7" y="368" font-size="11" text-anchor="middle" fill="#555">7</text>
+<text x="567.8" y="368" font-size="11" text-anchor="middle" fill="#555">8</text>
+<text x="638.9" y="368" font-size="11" text-anchor="middle" fill="#555">9</text>
+<text x="710.0" y="368" font-size="11" text-anchor="middle" fill="#555">10</text>
+<text x="390.0" y="386" font-size="12" text-anchor="middle" fill="#333">Epoch</text>
+<polyline points="70.0,305.3 141.1,229.0 212.2,229.0" fill="none" stroke="#7f7f7f" stroke-width="2.5"/>
+<circle cx="70.0" cy="305.3" r="3.5" fill="#7f7f7f"/>
+<circle cx="141.1" cy="229.0" r="3.5" fill="#7f7f7f"/>
+<circle cx="212.2" cy="229.0" r="3.5" fill="#7f7f7f"/>
+<rect x="490" y="271" width="14" height="4" fill="#7f7f7f"/>
+<text x="510" y="276" font-size="12" fill="#222">E0 Head-only 3ep — best 0.7669</text>
+<polyline points="70.0,305.3 141.1,229.0 212.2,229.0 283.3,174.5 354.4,174.5 425.6,147.2 496.7,147.2 567.8,136.3 638.9,141.8 710.0,152.7" fill="none" stroke="#2f6db5" stroke-width="2.5"/>
+<circle cx="70.0" cy="305.3" r="3.5" fill="#2f6db5"/>
+<circle cx="141.1" cy="229.0" r="3.5" fill="#2f6db5"/>
+<circle cx="212.2" cy="229.0" r="3.5" fill="#2f6db5"/>
+<circle cx="283.3" cy="174.5" r="3.5" fill="#2f6db5"/>
+<circle cx="354.4" cy="174.5" r="3.5" fill="#2f6db5"/>
+<circle cx="425.6" cy="147.2" r="3.5" fill="#2f6db5"/>
+<circle cx="496.7" cy="147.2" r="3.5" fill="#2f6db5"/>
+<circle cx="567.8" cy="136.3" r="3.5" fill="#2f6db5"/>
+<circle cx="638.9" cy="141.8" r="3.5" fill="#2f6db5"/>
+<circle cx="710.0" cy="152.7" r="3.5" fill="#2f6db5"/>
+<rect x="490" y="291" width="14" height="4" fill="#2f6db5"/>
+<text x="510" y="296" font-size="12" fill="#222">E1 Head-only 10ep — best 0.8947</text>
+<polyline points="70.0,81.8 141.1,87.3 212.2,87.3 283.3,70.9 354.4,70.9" fill="none" stroke="#c2702b" stroke-width="2.5"/>
+<circle cx="70.0" cy="81.8" r="3.5" fill="#c2702b"/>
+<circle cx="141.1" cy="87.3" r="3.5" fill="#c2702b"/>
+<circle cx="212.2" cy="87.3" r="3.5" fill="#c2702b"/>
+<circle cx="283.3" cy="70.9" r="3.5" fill="#c2702b"/>
+<circle cx="354.4" cy="70.9" r="3.5" fill="#c2702b"/>
+<rect x="490" y="311" width="14" height="4" fill="#c2702b"/>
+<text x="510" y="316" font-size="12" fill="#222">E2 Full FT 5ep (lr 5e-5) — best 0.9850</text>
+</svg>
