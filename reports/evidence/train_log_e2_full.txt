@@ -1,0 +1,11 @@
+(.venv) user1@DESKTOP-761SQI1:~/kh-subject9-eval-beans$ python -m training.finetune --data dataset --output artifacts/beans_resnet18_full --epochs 5 --batch-size 8 --lr 0.00005
+클래스: ['angular_leaf_spot', 'bean_rust', 'healthy'] / Train: 1034, Val: 133
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([3]) in the model instantiated
+- classifier.1.weight: found shape torch.Size([1000, 512]) in the checkpoint and torch.Size([3, 512]) in the model instantiated
+{'epoch': 1, 'loss': 0.4405, 'val_accuracy': 0.9699}
+{'epoch': 2, 'loss': 0.1552, 'val_accuracy': 0.9624}
+{'epoch': 3, 'loss': 0.0861, 'val_accuracy': 0.9624}
+{'epoch': 4, 'loss': 0.0521, 'val_accuracy': 0.985}
+{'epoch': 5, 'loss': 0.0478, 'val_accuracy': 0.985}
+저장 완료: artifacts/beans_resnet18_full / best val accuracy=0.9850
+(학습 로그에서 반복되는 HF 경고 3줄은 생략, 전체 출력은 사용자 터미널)
