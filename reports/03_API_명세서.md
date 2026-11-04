@@ -10,7 +10,7 @@
 | A-04 | GET | `/api/async/jobs/{job_id}/` | 경로 변수 `job_id` | 200 | `status`(queued·running·done·failed), `top1`·`all`(done일 때만), `inference_ms`, `cache_hit`, `error_message`(failed일 때만) | 404 없는 작업 |
 | W-01 | GET | `/vision/sync/` | 없음 | 200 | 동기 분류 화면 (HTML) | — |
 | W-02 | GET | `/vision/async/` | 없음 | 200 | 비동기 분류 화면 (HTML, 1초 간격 최대 60회 조회) | — |
-| W-03 | GET | `/docs` | 없음 | 200 | Swagger 문서 | — |
+| W-03 | GET | `/docs` | 없음 | 200 | Swagger 문서 ([캡처](evidence/ui_swagger.png)) | — |
 
 - **202는 "접수"이지 "완료"가 아니다.** 결과는 A-04로 따로 조회해야 한다.
 - `cache_hit=true`일 때 `inference_ms=null` → 모델 추론을 **건너뛰었다**는 뜻이지 0ms가 아니다.
