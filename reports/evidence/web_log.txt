@@ -1,113 +1,118 @@
-$ uvicorn main:app --host 127.0.0.1 --port 8000   (.venv, 2026-11-04 12:09:51 +0900)
-INFO:     Started server process [31341]
+$ uvicorn main:app --host 127.0.0.1 --port 8000   (.venv, 2026-11-04 12:50:56 +0900)
+INFO:     Started server process [40788]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:45876 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59534 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37074 - "GET /health HTTP/1.1" 200 OK
 Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
 Device set to use cpu
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/2/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/2/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/3/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/3/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/4/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/4/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/5/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/5/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/6/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/6/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/7/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/7/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/8/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/8/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/9/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/9/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/10/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/10/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/11/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/11/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 400 Bad Request
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 400 Bad Request
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 413 Request Entity Too Large
-INFO:     127.0.0.1:45884 - "POST /api/async/classify/ HTTP/1.1" 413 Request Entity Too Large
-INFO:     127.0.0.1:45884 - "POST /api/sync/classify/ HTTP/1.1" 422 Unprocessable Entity
-INFO:     127.0.0.1:45884 - "GET /api/async/jobs/999999/ HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:45884 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46936 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:46940 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:51858 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51862 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56718 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56722 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56726 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56734 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42544 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42560 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/1/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/2/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/2/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/3/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/3/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/4/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/4/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/5/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/5/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/6/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/6/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/7/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/7/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/8/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/8/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/9/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/9/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/10/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/10/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/11/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/11/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 413 Request Entity Too Large
+INFO:     127.0.0.1:37084 - "POST /api/async/classify/ HTTP/1.1" 413 Request Entity Too Large
+INFO:     127.0.0.1:37084 - "POST /api/sync/classify/ HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:37084 - "GET /api/async/jobs/999999/ HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37084 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56896 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:56898 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:43662 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43676 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38992 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38994 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39004 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39010 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41498 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41500 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41504 - "GET /api/async/jobs/12/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
 Redis 조회 불가; 모델 추론으로 전환: Error 111 connecting to 127.0.0.1:6379. Connection refused.
 Redis 캐시 저장 실패: Error 111 connecting to 127.0.0.1:6379. Connection refused.
-INFO:     127.0.0.1:55900 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55902 - "POST /api/async/classify/ HTTP/1.1" 503 Service Unavailable
-INFO:     127.0.0.1:45646 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:45648 - "GET /api/async/jobs/15/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45654 - "GET /api/async/jobs/15/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /vision/sync/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /static/style.css HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:42736 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /vision/async/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
-INFO:     127.0.0.1:42736 - "GET /api/async/jobs/16/ HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /docs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42736 - "GET /openapi.json HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42334 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41518 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41522 - "POST /api/async/classify/ HTTP/1.1" 503 Service Unavailable
+INFO:     127.0.0.1:55226 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:55228 - "GET /api/async/jobs/15/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /vision/sync/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:43790 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /vision/async/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "POST /api/async/classify/ HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:43790 - "GET /api/async/jobs/16/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43790 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58298 - "GET /health HTTP/1.1" 200 OK

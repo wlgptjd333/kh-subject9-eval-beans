@@ -1,0 +1,204 @@
+$ celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1   (.venv, 2026-11-04 12:09:48 +0900)
+ 
+ -------------- celery@DESKTOP-761SQI1 v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43 2026-11-04 12:09:49
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vision_ai:0x735fc2e6b310
+- ** ---------- .> transport:   redis://:**@127.0.0.1:6379/2
+- ** ---------- .> results:     redis://127.0.0.1:6379/3
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ai.classify_job
+
+[2026-11-04 12:09:49,112: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:09:49,114: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-04 12:09:50,120: INFO/MainProcess] mingle: all alone
+[2026-11-04 12:09:50,133: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
+[2026-11-04 12:10:21,350: INFO/MainProcess] Task ai.classify_job[4849180e-104b-49be-9d54-6b2785db91c8] received
+[2026-11-04 12:10:24,111: WARNING/MainProcess] Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[2026-11-04 12:10:24,113: WARNING/MainProcess] Device set to use cpu
+[2026-11-04 12:10:24,154: INFO/MainProcess] Task ai.classify_job[4849180e-104b-49be-9d54-6b2785db91c8] succeeded in 2.8030744540010346s: {'job_id': 1, 'status': 'done'}
+[2026-11-04 12:10:24,287: INFO/MainProcess] Task ai.classify_job[e6a5f9c2-d664-48e9-8c18-f822a0763d28] received
+[2026-11-04 12:10:24,316: INFO/MainProcess] Task ai.classify_job[e6a5f9c2-d664-48e9-8c18-f822a0763d28] succeeded in 0.028897075999338995s: {'job_id': 2, 'status': 'done'}
+[2026-11-04 12:10:24,405: INFO/MainProcess] Task ai.classify_job[5a47e294-fbbe-4e10-a906-cc0a0931463b] received
+[2026-11-04 12:10:24,438: INFO/MainProcess] Task ai.classify_job[5a47e294-fbbe-4e10-a906-cc0a0931463b] succeeded in 0.032952554000075907s: {'job_id': 3, 'status': 'done'}
+[2026-11-04 12:10:24,523: INFO/MainProcess] Task ai.classify_job[f15cdd67-49ab-46e3-8e34-f0029e05ef85] received
+[2026-11-04 12:10:24,553: INFO/MainProcess] Task ai.classify_job[f15cdd67-49ab-46e3-8e34-f0029e05ef85] succeeded in 0.029947490000267862s: {'job_id': 4, 'status': 'done'}
+[2026-11-04 12:10:24,643: INFO/MainProcess] Task ai.classify_job[234b25bc-cf30-47c1-b778-2f1b047d574c] received
+[2026-11-04 12:10:24,672: INFO/MainProcess] Task ai.classify_job[234b25bc-cf30-47c1-b778-2f1b047d574c] succeeded in 0.02833082999859471s: {'job_id': 5, 'status': 'done'}
+[2026-11-04 12:10:24,758: INFO/MainProcess] Task ai.classify_job[d92d39b9-f2b6-4ded-bfe6-d22b99f39b01] received
+[2026-11-04 12:10:24,787: INFO/MainProcess] Task ai.classify_job[d92d39b9-f2b6-4ded-bfe6-d22b99f39b01] succeeded in 0.029449621000821935s: {'job_id': 6, 'status': 'done'}
+[2026-11-04 12:10:24,874: INFO/MainProcess] Task ai.classify_job[8cda7b9b-a08e-4139-8010-b7ed172520de] received
+[2026-11-04 12:10:24,882: INFO/MainProcess] Task ai.classify_job[8cda7b9b-a08e-4139-8010-b7ed172520de] succeeded in 0.00714810200042848s: {'job_id': 7, 'status': 'done'}
+[2026-11-04 12:10:24,989: INFO/MainProcess] Task ai.classify_job[42e215eb-49d4-4e3a-adff-7434ba59adc2] received
+[2026-11-04 12:10:24,995: INFO/MainProcess] Task ai.classify_job[42e215eb-49d4-4e3a-adff-7434ba59adc2] succeeded in 0.006696680999084492s: {'job_id': 8, 'status': 'done'}
+[2026-11-04 12:10:25,106: INFO/MainProcess] Task ai.classify_job[46d1afdf-0001-47fe-a7a8-0f402aa6a132] received
+[2026-11-04 12:10:25,115: INFO/MainProcess] Task ai.classify_job[46d1afdf-0001-47fe-a7a8-0f402aa6a132] succeeded in 0.008154880999427405s: {'job_id': 9, 'status': 'done'}
+[2026-11-04 12:10:25,226: INFO/MainProcess] Task ai.classify_job[94b4a548-219f-4301-9d6a-ecaef33a19f2] received
+[2026-11-04 12:10:25,234: INFO/MainProcess] Task ai.classify_job[94b4a548-219f-4301-9d6a-ecaef33a19f2] succeeded in 0.00762348500029475s: {'job_id': 10, 'status': 'done'}
+[2026-11-04 12:10:25,342: INFO/MainProcess] Task ai.classify_job[dbcbfba7-50a4-4868-a630-81dc375f3642] received
+[2026-11-04 12:10:25,350: INFO/MainProcess] Task ai.classify_job[dbcbfba7-50a4-4868-a630-81dc375f3642] succeeded in 0.007204923000244889s: {'job_id': 11, 'status': 'done'}
+$ celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1   (.venv, 2026-11-04 12:13:20 +0900)
+ 
+ -------------- celery@DESKTOP-761SQI1 v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43 2026-11-04 12:13:20
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vision_ai:0x7ae68d043c10
+- ** ---------- .> transport:   redis://:**@127.0.0.1:6379/2
+- ** ---------- .> results:     redis://127.0.0.1:6379/3
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ai.classify_job
+
+[2026-11-04 12:13:21,002: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:13:21,004: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-04 12:13:22,012: INFO/MainProcess] mingle: all alone
+[2026-11-04 12:13:22,022: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
+[2026-11-04 12:13:22,025: INFO/MainProcess] Task ai.classify_job[61ae6bf2-2e38-4f2f-b6d6-09f479cf2a73] received
+[2026-11-04 12:13:24,836: WARNING/MainProcess] Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[2026-11-04 12:13:24,838: WARNING/MainProcess] Device set to use cpu
+[2026-11-04 12:13:24,875: INFO/MainProcess] Task ai.classify_job[61ae6bf2-2e38-4f2f-b6d6-09f479cf2a73] succeeded in 2.849350985001365s: {'job_id': 12, 'status': 'done'}
+[2026-11-04 12:13:24,877: INFO/MainProcess] Task ai.classify_job[5d03a070-4014-4659-8e86-d2e77153535d] received
+[2026-11-04 12:13:24,887: ERROR/MainProcess] Task ai.classify_job[5d03a070-4014-4659-8e86-d2e77153535d] raised unexpected: FileNotFoundError(2, 'No such file or directory')
+Traceback (most recent call last):
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/app/trace.py", line 585, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/app/trace.py", line 858, in __protected_call__
+    return self.run(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/ai/tasks.py", line 20, in classify_job
+    image_bytes = image_path.read_bytes()
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user1/kh-subject9-eval-beans/media/jobs/21ee240c252a4379a800b1acfb1a52f4.bin'
+[2026-11-04 12:13:43,143: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 915, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 936, in try_read
+    return conn.read_response(disconnect_on_error=False, push_request=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 650, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/resp2.py", line 15, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/resp2.py", line 25, in _read_response
+    raw = self._buffer.readline()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/socket.py", line 115, in readline
+    self._read_from_socket()
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/socket.py", line 68, in _read_from_socket
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 650, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/resp2.py", line 15, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/resp2.py", line 25, in _read_response
+    raw = self._buffer.readline()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/socket.py", line 115, in readline
+    self._read_from_socket()
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/_parsers/socket.py", line 65, in _read_from_socket
+    data = self._sock.recv(socket_read_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/worker/consumer/consumer.py", line 346, in start
+    blueprint.start(self)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/worker/consumer/consumer.py", line 788, in start
+    c.loop(*c.loop_args())
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/worker/loops.py", line 97, in asynloop
+    next(loop)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/kombu/asynchronous/hub.py", line 465, in create_loop
+    cb(*cbargs)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/kombu/transport/redis.py", line 2250, in on_readable
+    self.cycle.on_readable(fileno)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/kombu/transport/redis.py", line 863, in on_readable
+    chan.handlers[type]()
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/kombu/transport/redis.py", line 1421, in _receive
+    ret.append(self._receive_one(c))
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/kombu/transport/redis.py", line 1431, in _receive_one
+    response = c.parse_response()
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 938, in parse_response
+    response = self._execute(conn, try_read)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 914, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/retry.py", line 108, in call_with_retry
+    fail(error)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 916, in <lambda>
+    lambda _: self._reconnect(conn),
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 904, in _reconnect
+    conn.connect()
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 403, in connect_check_health
+    self.on_connect_check_health(check_health=check_health)
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 523, in on_connect_check_health
+    self.read_response()
+  File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/connection.py", line 658, in read_response
+    raise ConnectionError(f"Error while reading from {host_error} : {e.args}")
+redis.exceptions.ConnectionError: Error while reading from 127.0.0.1:6379 : (104, 'Connection reset by peer')
+[2026-11-04 12:13:43,145: WARNING/MainProcess] /home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:397: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  warnings.warn(CANCEL_TASKS_BY_DEFAULT, CPendingDeprecationWarning)
+
+[2026-11-04 12:13:43,147: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:6379/2: Error while reading from 127.0.0.1:6379 : (104, 'Connection reset by peer').
+Trying again in 2.00 seconds... (1/100)
+
+[2026-11-04 12:13:45,154: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:13:45,157: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-04 12:13:46,165: INFO/MainProcess] mingle: all alone
+[2026-11-04 12:13:52,566: INFO/MainProcess] Task ai.classify_job[cde136fd-1fb3-4c51-b673-989bf937c133] received
+[2026-11-04 12:13:52,600: INFO/MainProcess] Task ai.classify_job[cde136fd-1fb3-4c51-b673-989bf937c133] succeeded in 0.03338675399936619s: {'job_id': 15, 'status': 'done'}
+[2026-11-04 12:14:13,610: INFO/MainProcess] Task ai.classify_job[d5a21e10-307b-4e95-ab88-776732b80334] received
+[2026-11-04 12:14:13,647: INFO/MainProcess] Task ai.classify_job[d5a21e10-307b-4e95-ab88-776732b80334] succeeded in 0.036323488000562065s: {'job_id': 16, 'status': 'done'}

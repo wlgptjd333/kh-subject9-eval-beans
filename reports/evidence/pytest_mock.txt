@@ -4,6 +4,6 @@ E   ModuleNotFoundError: No module named 'ai'
 !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
 1 warning, 1 error in 0.24s
 
-# 2차: python -m pytest (2026-11-04 12:14:40 +0900)
+# 2차: python -m pytest (2026-11-04 12:54:23 +0900)
 $ python -m pytest -q tests/test_api.py
 4 passed, 1 warning in 0.49s

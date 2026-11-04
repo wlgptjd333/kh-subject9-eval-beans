@@ -21,7 +21,7 @@ flowchart LR
     subgraph HOST["WSL2 · .venv"]
       F["FastAPI (uvicorn)"]
       W["Celery Worker"]
-      M["ResNet-18<br/>artifacts/beans_resnet18"]
+      M["ResNet-18 (E2)<br/>artifacts/beans_resnet18_full"]
     end
     subgraph D["Docker Compose"]
       R[("Redis<br/>DB1 캐시 · DB2 브로커 · DB3 결과")]
@@ -80,7 +80,8 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18_ful
 ## 5. 구동 순서 (평가 가이드 방식)
 
 ```bash
-cp .env.example .env                                   # MODEL_PATH=artifacts/beans_resnet18
+cp .env.example .env                                   # 기본값 MODEL_PATH=artifacts/beans_resnet18 (E0)
+sed -i 's#^MODEL_PATH=.*#MODEL_PATH=artifacts/beans_resnet18_full#' .env  # 서비스는 최종 선정 E2
 docker compose up -d redis postgres                    # Redis·PostgreSQL만
 docker compose exec redis redis-cli ping               # PONG
 ```
@@ -132,10 +133,10 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 | Head-only Best Validation Accuracy (3 Epoch) | 0.7669 — Macro F1 0.764, 가장 약한 클래스 bean_rust Recall 0.6444 |
 | 개선 실험 Val Accuracy | E1 Head-only 10 Epoch 0.8947 / **E2 Full Fine-tuning 0.985** (최종 선정) |
 | Test Accuracy (선정 후 1회) | E0 0.7188 → **E2 0.9766** (125/128) |
-| 동기 MISS HTTP 완료 (중앙값 5회) | 22.8 ms (추론 18.0 ms) |
-| 동기 HIT HTTP 완료 | 1.7 ms |
-| 비동기 MISS HTTP 접수 | 8.5 ms |
-| 비동기 MISS 최종 확인 (0.1초 조회) | 117.1 ms |
+| 동기 MISS HTTP 완료 (중앙값 5회) | 22.0 ms (추론 17.0 ms) |
+| 동기 HIT HTTP 완료 | 1.4 ms |
+| 비동기 MISS HTTP 접수 | 10.6 ms |
+| 비동기 MISS 최종 확인 (0.1초 조회) | 117.8 ms |
 | 기능 테스트 (실환경) | 18개 PASS (Redis 장애 503·작업 실패 failed 포함) |
 
 ## 9. 산출물

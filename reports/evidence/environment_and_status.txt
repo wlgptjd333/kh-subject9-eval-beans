@@ -1,16 +1,16 @@
-# 실행 구조 확인 (2026-11-04 12:14:41 +0900)
+# 실행 구조 확인 (2026-11-04 12:54:24 +0900)
 $ docker compose ps   ← Docker에는 Redis·PostgreSQL만
-NAME                                IMAGE                COMMAND                  SERVICE    CREATED             STATUS                       PORTS
-kh-subject9-eval-beans-postgres-1   postgres:17-alpine   "docker-entrypoint.s…"   postgres   About an hour ago   Up About an hour (healthy)   127.0.0.1:5432->5432/tcp
-kh-subject9-eval-beans-redis-1      redis:7.4-alpine     "docker-entrypoint.s…"   redis      About an hour ago   Up 57 seconds (healthy)      127.0.0.1:6379->6379/tcp
+NAME                                IMAGE                COMMAND                  SERVICE    CREATED       STATUS                    PORTS
+kh-subject9-eval-beans-postgres-1   postgres:17-alpine   "docker-entrypoint.s…"   postgres   2 hours ago   Up 2 hours (healthy)      127.0.0.1:5432->5432/tcp
+kh-subject9-eval-beans-redis-1      redis:7.4-alpine     "docker-entrypoint.s…"   redis      2 hours ago   Up 42 seconds (healthy)   127.0.0.1:6379->6379/tcp
 
 $ ps (WSL 호스트 프로세스) ← FastAPI·Celery는 .venv에서 실행
-  31341 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
-  32167 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1
+  40788 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+  41501 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1
 
 $ readlink /proc/<pid>/exe
-31341 -> /home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11
-32167 -> /home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11
+40788 -> /home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11
+41501 -> /home/user1/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11
 
 $ curl /health
 {"status":"ok"}
@@ -20,7 +20,7 @@ $ pg_isready
 /var/run/postgresql:5432 - accepting connections
 $ .env
 # 01에서 Fine-tuning한 모델 폴더. 첫 실행 전에 실제 학습 결과가 있어야 합니다.
-MODEL_PATH=artifacts/beans_resnet18
+MODEL_PATH=artifacts/beans_resnet18_full
 # 모델 경로를 전환할 때는 docker compose up -d --force-recreate web worker
 # DB/Redis 주소는 compose.yaml의 environment가 컨테이너 서비스명으로 설정합니다.
 
@@ -36,7 +36,7 @@ postgres (PostgreSQL) 17.11
 PRETTY_NAME="Ubuntu 26.04.1 LTS"
 CPU threads 20
                total        used        free      shared  buff/cache   available
-Mem:            15Gi       4.0Gi       2.2Gi        94Mi       9.6Gi        11Gi
+Mem:            15Gi       4.0Gi       9.1Gi       100Mi       2.7Gi        11Gi
 Model name:                              12th Gen Intel(R) Core(TM) i7-12700
 NVIDIA GeForce RTX 3060, 12288 MiB, 610.88
 서비스 추론 장치: ai/hf_model.py가 pipeline(device=-1) → CPU (GPU는 학습에만 사용)

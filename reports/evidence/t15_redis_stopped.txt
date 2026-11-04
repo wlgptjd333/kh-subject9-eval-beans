@@ -1,12 +1,12 @@
-# T-15 Redis 정지 (2026-11-04 12:13:42 +0900)
+# T-15 Redis 정지 (2026-11-04 12:53:40 +0900)
 $ docker compose stop redis
  Container kh-subject9-eval-beans-redis-1 Stopping 
  Container kh-subject9-eval-beans-redis-1 Stopped 
 $ POST /api/sync/classify/ (dataset/val/angular_leaf_spot/angular_leaf_spot_val.18.jpg)  — 캐시 없이 추론으로 진행되는지
-HTTP 200  0.024170s
-{"model_id":"artifacts/beans_resnet18","top1":{"label":"angular_leaf_spot","score":0.49216893315315247},"all":[{"label":"angular_leaf_spot","score":0.49216893315315247},{"label":"bean_rust","score":0.3028183579444885},{"label":"healthy","score":0.20501267910003662}],"inference_ms":18.39,"cache_hit":false}
+HTTP 200  0.022955s
+{"model_id":"artifacts/beans_resnet18_full","top1":{"label":"angular_leaf_spot","score":0.5255475640296936},"all":[{"label":"angular_leaf_spot","score":0.5255475640296936},{"label":"healthy","score":0.2783240079879761},{"label":"bean_rust","score":0.1961284875869751}],"inference_ms":16.15,"cache_hit":false}
 $ POST /api/async/classify/ (dataset/val/healthy/healthy_val.18.jpg)  — 큐 등록 실패 시 503
-HTTP 503  0.614760s
+HTTP 503  0.617163s
 {"detail":"작업 큐 등록 실패: Redis 연결을 확인하세요."}
 $ DB 마지막 행
  id | status | cache_hit |                error_message                
@@ -26,8 +26,8 @@ $ redis-cli ping
 PONG
 $ POST /api/async/classify/ (dataset/val/bean_rust/bean_rust_val.18.jpg)  — Worker가 다시 처리하는지
 {"job_id":15,"status":"queued","check_url":"/api/async/jobs/15/"}
-{"job_id":15,"status":"done","model_id":"artifacts/beans_resnet18","top1":{"label":"bean_rust","score":0.42560604214668274},"all":[{"label":"bean_rust","score":0.42560604214668274},{"label":"healthy","score":0.36120185256004333},{"label":"angular_leaf_spot","score":0.2131921350955963}],"inference_ms":20.36,"cache_hit":false,"error_message":null}
+{"job_id":15,"status":"done","model_id":"artifacts/beans_resnet18_full","top1":{"label":"bean_rust","score":0.9995037317276001},"all":[{"label":"bean_rust","score":0.9995037317276001},{"label":"healthy","score":0.00047552952310070395},{"label":"angular_leaf_spot","score":2.0676772692240775e-05}],"inference_ms":21.31,"cache_hit":false,"error_message":null}
 $ worker 로그의 재연결
   File "/home/user1/kh-subject9-eval-beans/.venv/lib/python3.11/site-packages/redis/client.py", line 904, in _reconnect
-[2026-11-04 12:13:43,147: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:6379/2: Error while reading from 127.0.0.1:6379 : (104, 'Connection reset by peer').
-[2026-11-04 12:13:45,154: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:53:41,056: ERROR/MainProcess] consumer: Cannot connect to redis://:**@127.0.0.1:6379/2: Error while reading from 127.0.0.1:6379 : (104, 'Connection reset by peer').
+[2026-11-04 12:53:43,061: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2

@@ -32,57 +32,57 @@
 
 ## 요청·응답 증빙
 
-전체 원본: [evidence/api_responses.json](evidence/api_responses.json) (2026-11-04T12:10:18+09:00, `scripts/bench_api.py`, Validation 이미지)
+전체 원본: [evidence/api_responses.json](evidence/api_responses.json) (2026-11-04T12:51:31+09:00, `scripts/bench_api.py`, Validation 이미지)
 
-API-02 성공 — `val/healthy/healthy_val.0.jpg` → HTTP 200, 24.7 ms
+API-02 성공 — `val/healthy/healthy_val.0.jpg` → HTTP 200, 23.6 ms
 
 ```json
 {
-  "model_id": "artifacts/beans_resnet18",
+  "model_id": "artifacts/beans_resnet18_full",
   "top1": {
-    "label": "bean_rust",
-    "score": 0.4773241877555847
+    "label": "healthy",
+    "score": 0.9102250933647156
   },
   "all": [
     {
-      "label": "bean_rust",
-      "score": 0.4773241877555847
+      "label": "healthy",
+      "score": 0.9102250933647156
     },
     {
       "label": "angular_leaf_spot",
-      "score": 0.2892920970916748
+      "score": 0.05476333200931549
     },
     {
-      "label": "healthy",
-      "score": 0.2333836853504181
+      "label": "bean_rust",
+      "score": 0.03501157462596893
     }
   ],
-  "inference_ms": 19.63,
+  "inference_ms": 18.37,
   "cache_hit": false
 }
 ```
 
-API-02 같은 파일 재요청 (캐시 HIT) → HTTP 200, 2.0 ms
+API-02 같은 파일 재요청 (캐시 HIT) → HTTP 200, 2.2 ms
 
 ```json
 {
-  "model_id": "artifacts/beans_resnet18",
+  "model_id": "artifacts/beans_resnet18_full",
   "top1": {
-    "label": "bean_rust",
-    "score": 0.4773241877555847
+    "label": "healthy",
+    "score": 0.9102250933647156
   },
   "all": [
     {
-      "label": "bean_rust",
-      "score": 0.4773241877555847
+      "label": "healthy",
+      "score": 0.9102250933647156
     },
     {
       "label": "angular_leaf_spot",
-      "score": 0.2892920970916748
+      "score": 0.05476333200931549
     },
     {
-      "label": "healthy",
-      "score": 0.2333836853504181
+      "label": "bean_rust",
+      "score": 0.03501157462596893
     }
   ],
   "inference_ms": null,
@@ -90,7 +90,7 @@ API-02 같은 파일 재요청 (캐시 HIT) → HTTP 200, 2.0 ms
 }
 ```
 
-API-03 접수 — `val/bean_rust/bean_rust_val.10.jpg` → HTTP 202, 8.5 ms
+API-03 접수 — `val/bean_rust/bean_rust_val.10.jpg` → HTTP 202, 8.9 ms
 
 ```json
 {
@@ -106,26 +106,26 @@ API-04 완료 (관찰한 상태: queued → done) → HTTP 200
 {
   "job_id": 2,
   "status": "done",
-  "model_id": "artifacts/beans_resnet18",
+  "model_id": "artifacts/beans_resnet18_full",
   "top1": {
     "label": "bean_rust",
-    "score": 0.4297408163547516
+    "score": 0.9991656541824341
   },
   "all": [
     {
       "label": "bean_rust",
-      "score": 0.4297408163547516
-    },
-    {
-      "label": "healthy",
-      "score": 0.36878353357315063
+      "score": 0.9991656541824341
     },
     {
       "label": "angular_leaf_spot",
-      "score": 0.20147566497325897
+      "score": 0.0006010123179294169
+    },
+    {
+      "label": "healthy",
+      "score": 0.00023333744320552796
     }
   ],
-  "inference_ms": 18.32,
+  "inference_ms": 19.15,
   "cache_hit": false,
   "error_message": null
 }

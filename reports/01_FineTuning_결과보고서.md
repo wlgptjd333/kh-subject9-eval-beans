@@ -116,27 +116,27 @@ python -m training.evaluate --model artifacts/beans_resnet18 --split val
 
 ## 5. 서비스 연결 확인
 
-`.env` `MODEL_PATH=artifacts/beans_resnet18`, FastAPI·Celery를 `.venv`에서 실행 (2026-11-04).
+`.env` `MODEL_PATH=artifacts/beans_resnet18_full`(최종 선정 E2, §6), FastAPI·Celery를 `.venv`에서 실행 (2026-11-04). E0로 같은 절차를 실행한 기록은 [service_e0](evidence/service_e0/)에 보관.
 
-- 모든 응답의 `model_id` = `artifacts/beans_resnet18`, 라벨은 3클래스만 → 원본 1,000클래스가 아니라 학습한 모델이 쓰임
+- 모든 응답의 `model_id` = `artifacts/beans_resnet18_full`, 라벨은 3클래스만 → 원본 1,000클래스가 아니라 학습한 모델이 쓰임
 - 서비스 측정에 쓴 **Validation** 이미지 12장 (캐시 HIT 중복 제외):
 
 | run_id | 경로 | 파일 | 정답 | 예측 | 점수 | 일치 |
 |---:|---|---|---|---|---:|:-:|
-| 0 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.0.jpg` | angular_leaf_spot | angular_leaf_spot | 0.482 | O |
-| 0 | async | `val/bean_rust/bean_rust_val.0.jpg` | bean_rust | healthy | 0.434 | X |
-| 1 | sync | `val/healthy/healthy_val.0.jpg` | healthy | bean_rust | 0.477 | X |
-| 2 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.1.jpg` | angular_leaf_spot | bean_rust | 0.463 | X |
-| 3 | sync | `val/bean_rust/bean_rust_val.1.jpg` | bean_rust | angular_leaf_spot | 0.461 | X |
-| 4 | sync | `val/healthy/healthy_val.1.jpg` | healthy | healthy | 0.668 | O |
-| 5 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.10.jpg` | angular_leaf_spot | angular_leaf_spot | 0.502 | O |
-| 1 | async | `val/bean_rust/bean_rust_val.10.jpg` | bean_rust | bean_rust | 0.430 | O |
-| 2 | async | `val/healthy/healthy_val.10.jpg` | healthy | healthy | 0.717 | O |
-| 3 | async | `val/angular_leaf_spot/angular_leaf_spot_val.11.jpg` | angular_leaf_spot | bean_rust | 0.448 | X |
-| 4 | async | `val/bean_rust/bean_rust_val.11.jpg` | bean_rust | healthy | 0.493 | X |
-| 5 | async | `val/healthy/healthy_val.11.jpg` | healthy | healthy | 0.744 | O |
+| 0 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.0.jpg` | angular_leaf_spot | angular_leaf_spot | 0.998 | O |
+| 0 | async | `val/bean_rust/bean_rust_val.0.jpg` | bean_rust | bean_rust | 0.997 | O |
+| 1 | sync | `val/healthy/healthy_val.0.jpg` | healthy | healthy | 0.910 | O |
+| 2 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.1.jpg` | angular_leaf_spot | angular_leaf_spot | 0.998 | O |
+| 3 | sync | `val/bean_rust/bean_rust_val.1.jpg` | bean_rust | bean_rust | 0.996 | O |
+| 4 | sync | `val/healthy/healthy_val.1.jpg` | healthy | healthy | 0.900 | O |
+| 5 | sync | `val/angular_leaf_spot/angular_leaf_spot_val.10.jpg` | angular_leaf_spot | angular_leaf_spot | 0.987 | O |
+| 1 | async | `val/bean_rust/bean_rust_val.10.jpg` | bean_rust | bean_rust | 0.999 | O |
+| 2 | async | `val/healthy/healthy_val.10.jpg` | healthy | healthy | 0.995 | O |
+| 3 | async | `val/angular_leaf_spot/angular_leaf_spot_val.11.jpg` | angular_leaf_spot | angular_leaf_spot | 0.965 | O |
+| 4 | async | `val/bean_rust/bean_rust_val.11.jpg` | bean_rust | bean_rust | 0.997 | O |
+| 5 | async | `val/healthy/healthy_val.11.jpg` | healthy | healthy | 1.000 | O |
 
-12장 중 6장 일치 — 동작 확인용 표본이며 정확도 지표가 아님. 증빙 [api_responses.json](evidence/api_responses.json)
+12장 중 12장 일치 — 동작 확인용 표본이며 정확도 지표가 아님. 증빙 [api_responses.json](evidence/api_responses.json)
 
 > **Test 사용 기록:** 처음 02 방식(전부 Docker)으로 측정할 때 Test 이미지 15장을 시연·측정에 썼고 예측 결과를 봤다(모델·설정 선택에는 쓰지 않음). 이후 시연·측정은 모두 Validation 이미지로 바꿨다 ([E-05](07_기능테스트_오류분석.md)). 기록: [docker_mode_02/api_responses.json](evidence/docker_mode_02/api_responses.json)
 
@@ -203,9 +203,22 @@ E2 Test 세부:
 
 - 주의: 처음 02 방식 측정 때 E0로 Test 이미지 15장의 예측을 본 적이 있다 ([E-05](07_기능테스트_오류분석.md)). 이후 모델·설정 선택은 Validation만으로 했다.
 
-### 6-2. 서비스 모델
+### 6-2. 서비스 모델 — E2로 전환
 
-평가 가이드는 서비스 모델 경로를 `artifacts/beans_resnet18`(E0)로 통일하라고 하므로, 산출물 2~7의 서비스 실측은 **E0** 기준이다. E2를 서비스에 쓰려면 `.env`의 `MODEL_PATH=artifacts/beans_resnet18_full`로 바꾸고 FastAPI·Worker를 재시작하면 된다 (구조가 같은 ResNet-18이라 추론 시간은 거의 같을 것으로 예상, 미측정).
+평가 가이드 예시 경로는 `artifacts/beans_resnet18`(E0)이지만, Validation으로 고른 최종 모델을 서비스에 쓰기 위해 `.env`를 `MODEL_PATH=artifacts/beans_resnet18_full`로 바꾸고 FastAPI·Worker를 재시작했다. 코드 수정은 없다. 산출물 2~7의 서비스 실측·테스트·캡처는 **E2 기준**으로 다시 했다. E0로 먼저 같은 절차를 돌린 기록은 [evidence/service_e0](evidence/service_e0/)·[data/service_e0](data/service_e0/)에 그대로 보관했다 (가이드와 다른 점은 모델 경로 하나).
+
+같은 측정 스크립트(`scripts/bench_api.py`, 같은 Validation 12장, 조건별 5회)의 중앙값:
+
+| 항목 (ms) | 서비스 E0 | 서비스 E2 |
+|---|---:|---:|
+| Sync MISS 응답 | 22.8 | 22.0 |
+| Sync MISS 추론 | 18.0 | 17.0 |
+| Sync HIT 응답 | 1.7 | 1.4 |
+| Async 접수(202) | 8.5 | 10.6 |
+| Async MISS 최종 | 117.1 | 117.8 |
+| Async HIT 최종 | 116.8 | 116.7 |
+
+구조가 같은 ResNet-18이라 추론 시간은 같은 수준이다. 측정 표본 12장의 예측 일치는 E0 6/12 → E2 12/12 (동작 확인용 표본이며 정확도 지표는 §6-1의 Test).
 
 ## 7. 결과 판정과 한계
 
