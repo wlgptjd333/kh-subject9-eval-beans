@@ -3,7 +3,7 @@
 - 기준 모델: microsoft/resnet-18
 - 학습 방식: Head-only (Backbone freeze)
 - 모델 저장 위치: artifacts/beans_resnet18/
-- 실험 상태: 미실행
+- 실험 상태: Head-only 학습 완료 (2026-11-04)
 
 ## 1. 데이터 구성
 
@@ -35,26 +35,49 @@ ca67b15d960d1e2fd9d23fd8498ce86818ead90755c630a43baf19ec4af09312  test.zip
 
 | 파라미터 | 값 |
 |---|---|
-| epochs | |
-| batch_size | |
-| learning_rate | |
-| freeze_backbone | |
+| base_model | microsoft/resnet-18 |
+| epochs | 3 |
+| batch_size | 8 |
+| learning_rate | 0.0002 (제공 코드 기본값) |
+| freeze_backbone | True — `classifier.`로 시작하는 파라미터만 학습 |
+| output | artifacts/beans_resnet18 |
 | seed | 42 (제공 코드) |
+| 학습 장치 | GPU (NVIDIA GeForce RTX 3060, WSL2) — 제공 코드가 CUDA를 자동 사용 |
+| 환경 | Python 3.11.17, torch 2.15.0+cu132, transformers 4.57.6 |
+
+실행 명령 (제공 문서 그대로):
+
+```bash
+python -m training.finetune --data dataset --output artifacts/beans_resnet18 --epochs 3 --batch-size 8 --freeze-backbone
+```
+
+출력층 교체 확인 (학습 로그): `classifier.1.weight` `[1000, 512]` → `[3, 512]`, `classifier.1.bias` `[1000]` → `[3]` 가 새로 초기화됨
 
 ## 3. 학습 결과 (`training_report.json`에서 옮김)
 
 | Epoch | Train Loss | Validation Accuracy |
 |---|---:|---:|
+| 1 | 0.9924 | 0.6617 |
+| 2 | 0.8108 | 0.7669 |
+| 3 | 0.7078 | 0.7669 |
 
-- Best Validation Accuracy:
-- Test Accuracy: 미측정
+- Best Validation Accuracy: **0.7669** (133장 중 102장)
+- 저장된 모델: **Epoch 2** 가중치 — 제공 코드는 `acc > best_acc`일 때만 저장하므로, 같은 값인 Epoch 3은 저장하지 않음
+- Train Loss는 3 Epoch 동안 계속 감소 → 3 Epoch에서 아직 수렴하지 않았을 가능성
+- Test Accuracy: 미측정 (제공 코드에 Test 평가 절차 없음)
+- 클래스별 Precision·Recall·혼동행렬: 미측정 (제공 코드가 계산하지 않음)
+- 증빙: [학습 로그](evidence/train_log_head_only.txt), [training_report.json 사본](data/training_report_head_only.json)
 
 ## 4. 생성 파일 확인
 
-- [ ] config.json
-- [ ] model.safetensors
-- [ ] preprocessor_config.json
-- [ ] training_report.json
+| 파일 | 크기 |
+|---|---:|
+| config.json (`id2label`: 0 angular_leaf_spot, 1 bean_rust, 2 healthy) | 808 B |
+| model.safetensors | 44.8 MB |
+| preprocessor_config.json | 352 B |
+| training_report.json | 468 B |
+
+모델 파일은 Git에 올리지 않음 (`artifacts/` 제외).
 
 ## 5. 서비스 연결 확인
 

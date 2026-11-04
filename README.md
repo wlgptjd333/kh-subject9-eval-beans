@@ -2,7 +2,7 @@
 
 KH정보교육원 교과 9 평가과제입니다. 콩잎 사진 한 장을 올리면 `angular_leaf_spot`(각진잎반점병) · `bean_rust`(녹병) · `healthy`(정상) 중 하나로 분류하는 웹 서비스를 실행하고, 학습 결과와 시스템 동작을 산출물 8종으로 정리합니다.
 
-> **진행 상태:** 제공 코드 배치와 모의 테스트까지 완료. 데이터 준비·학습·실측은 아직 하지 않았습니다. 아래 결과 칸은 실행 후 채웁니다.
+> **진행 상태:** 데이터 배치, Head-only 학습 완료. 서비스 실행·실측은 아직 하지 않았습니다. 미측정 칸은 실행 후 채웁니다.
 
 ## 1. 구성
 
@@ -79,8 +79,8 @@ curl http://127.0.0.1:8000/health
 
 | 항목 | 결과 |
 |---|---|
-| Train / Validation 이미지 수 | 미측정 |
-| Best Validation Accuracy | 미측정 |
+| Train / Validation / Test 이미지 수 | 1,034 / 133 / 128 |
+| Best Validation Accuracy (Head-only, 3 Epoch) | 0.7669 |
 | Test Accuracy | 미측정 (제공 코드에 Test 평가 없음) |
 | 동기 MISS HTTP 완료 (중앙값) | 미측정 |
 | 비동기 MISS HTTP 접수 (중앙값) | 미측정 |
