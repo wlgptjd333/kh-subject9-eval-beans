@@ -1,0 +1,28 @@
+# T-10 Worker 정지 상태 접수 (2026-11-04 11:09:50 +0900)
+$ docker compose stop worker
+ Container kh-subject9-eval-beans-worker-1 Stopping 
+ Container kh-subject9-eval-beans-worker-1 Stopped 
+$ POST /api/async/classify/ (dataset/test/healthy/healthy_test.17.jpg)
+{"job_id":12,"status":"queued","check_url":"/api/async/jobs/12/"}
+HTTP 202
+$ (5초 뒤) GET /api/async/jobs/12/
+{"job_id":12,"status":"queued","model_id":"artifacts/beans_resnet18","top1":null,"all":null,"inference_ms":null,"cache_hit":null,"error_message":null}
+$ redis-cli -n 2 llen celery  (브로커 대기열 길이)
+1
+$ docker compose start worker
+ Container kh-subject9-eval-beans-redis-1 Waiting 
+ Container kh-subject9-eval-beans-postgres-1 Waiting 
+ Container kh-subject9-eval-beans-postgres-1 Healthy 
+ Container kh-subject9-eval-beans-redis-1 Healthy 
+ Container kh-subject9-eval-beans-redis-1 Waiting 
+ Container kh-subject9-eval-beans-web-1 Waiting 
+ Container kh-subject9-eval-beans-postgres-1 Waiting 
+ Container kh-subject9-eval-beans-web-1 Healthy 
+ Container kh-subject9-eval-beans-redis-1 Healthy 
+ Container kh-subject9-eval-beans-postgres-1 Healthy 
+ Container kh-subject9-eval-beans-worker-1 Starting 
+ Container kh-subject9-eval-beans-worker-1 Started 
+$ (Worker 재시작 후 약 5초) GET /api/async/jobs/12/
+{"job_id":12,"status":"done","model_id":"artifacts/beans_resnet18","top1":{"label":"healthy","score":0.6522662043571472},"all":[{"label":"healthy","score":0.6522662043571472},{"label":"bean_rust","score":0.17907971143722534},{"label":"angular_leaf_spot","score":0.16865405440330505}],"inference_ms":2413.05,"cache_hit":false,"error_message":null}
+$ redis-cli -n 2 llen celery
+0

@@ -2,7 +2,7 @@
 
 KH정보교육원 교과 9 평가과제입니다. 콩잎 사진 한 장을 올리면 `angular_leaf_spot`(각진잎반점병) · `bean_rust`(녹병) · `healthy`(정상) 중 하나로 분류하는 웹 서비스를 실행하고, 학습 결과와 시스템 동작을 산출물 8종으로 정리합니다.
 
-> **진행 상태:** 데이터 배치, Head-only 학습 완료. 서비스 실행·실측은 아직 하지 않았습니다. 미측정 칸은 실행 후 채웁니다.
+> **진행 상태:** 데이터 배치, Head-only 학습, Docker 서비스 실행·실측·기능 테스트 완료 (2026-11-04). 화면 캡처와 Test Accuracy는 아직입니다.
 
 ## 1. 구성
 
@@ -73,7 +73,7 @@ curl http://127.0.0.1:8000/health
 - `POST /api/sync/classify/` → 200, `top1`, `all`, `inference_ms`, `cache_hit`
 - `POST /api/async/classify/` → 202, `job_id`, `check_url` / `GET /api/async/jobs/{job_id}/` → `status=done`
 - PostgreSQL 기록: [산출물 4](reports/04_DB_구조_작업이력.md)의 조회 SQL
-- 모의 테스트: `docker compose exec web pytest -q tests/test_api.py` (실제 모델·Redis·Celery 동작은 검증하지 않음)
+- 모의 테스트: `docker compose exec web python -m pytest -q tests/test_api.py` (실제 모델·Redis·Celery 동작은 검증하지 않음). 문서의 `pytest -q …`는 `No module named 'ai'`로 실패 — [E-02](reports/07_기능테스트_오류분석.md)
 
 ## 6. 결과 요약
 
@@ -82,9 +82,13 @@ curl http://127.0.0.1:8000/health
 | Train / Validation / Test 이미지 수 | 1,034 / 133 / 128 |
 | Best Validation Accuracy (Head-only, 3 Epoch) | 0.7669 |
 | Test Accuracy | 미측정 (제공 코드에 Test 평가 없음) |
-| 동기 MISS HTTP 완료 (중앙값) | 미측정 |
-| 비동기 MISS HTTP 접수 (중앙값) | 미측정 |
-| 비동기 MISS 최종 확인 (중앙값) | 미측정 |
+| 동기 MISS HTTP 완료 (중앙값 5회) | 20.4 ms (추론 14.7 ms) |
+| 동기 HIT HTTP 완료 (중앙값 5회) | 1.9 ms |
+| 비동기 MISS HTTP 접수 (중앙값 5회) | 9.9 ms |
+| 비동기 MISS 최종 확인 (중앙값 5회, 0.1초 조회) | 120.7 ms |
+| 기능 테스트 (실환경) | 13개 PASS, 2개 미실시 |
+
+측정 환경: Docker Desktop + WSL2, i7-12700, 서비스는 CPU 추론. 첫 요청(모델 로딩 약 2.3초)은 제외.
 
 ## 7. 산출물
 

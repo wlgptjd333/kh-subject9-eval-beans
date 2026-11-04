@@ -81,4 +81,31 @@ python -m training.finetune --data dataset --output artifacts/beans_resnet18 --e
 
 ## 5. 서비스 연결 확인
 
+`.env`의 `MODEL_PATH=artifacts/beans_resnet18`로 web·worker를 띄우고 API로 확인 (2026-11-04).
+
+- 응답 `model_id`가 `artifacts/beans_resnet18`, 라벨은 `angular_leaf_spot`·`bean_rust`·`healthy` 3개만 나옴 → 원본 1,000클래스가 아니라 학습한 모델이 쓰임
+- 서비스 측정에 쓴 Test 이미지 12장의 예측 (캐시 HIT 중복 제외):
+
+| run_id | 경로 | 파일 | 정답 | 예측 | 점수 | 일치 |
+|---:|---|---|---|---|---:|:-:|
+| 0 | sync | `test/angular_leaf_spot/angular_leaf_spot_test.0.jpg` | angular_leaf_spot | angular_leaf_spot | 0.462 | O |
+| 0 | async | `test/bean_rust/bean_rust_test.0.jpg` | bean_rust | bean_rust | 0.605 | O |
+| 1 | sync | `test/healthy/healthy_test.0.jpg` | healthy | healthy | 0.637 | O |
+| 2 | sync | `test/angular_leaf_spot/angular_leaf_spot_test.1.jpg` | angular_leaf_spot | angular_leaf_spot | 0.518 | O |
+| 3 | sync | `test/bean_rust/bean_rust_test.1.jpg` | bean_rust | bean_rust | 0.515 | O |
+| 4 | sync | `test/healthy/healthy_test.1.jpg` | healthy | healthy | 0.817 | O |
+| 5 | sync | `test/angular_leaf_spot/angular_leaf_spot_test.10.jpg` | angular_leaf_spot | angular_leaf_spot | 0.515 | O |
+| 1 | async | `test/bean_rust/bean_rust_test.10.jpg` | bean_rust | angular_leaf_spot | 0.383 | X |
+| 2 | async | `test/healthy/healthy_test.10.jpg` | healthy | bean_rust | 0.500 | X |
+| 3 | async | `test/angular_leaf_spot/angular_leaf_spot_test.11.jpg` | angular_leaf_spot | angular_leaf_spot | 0.580 | O |
+| 4 | async | `test/bean_rust/bean_rust_test.11.jpg` | bean_rust | bean_rust | 0.591 | O |
+| 5 | async | `test/healthy/healthy_test.11.jpg` | healthy | healthy | 0.848 | O |
+
+12장 중 10장 일치. **이것은 동작 확인용 표본이지 Test Accuracy가 아니다** (128장 전체 평가는 하지 않음). 증빙: [api_responses.json](evidence/api_responses.json)
+
 ## 6. 결과 판정과 한계
+
+- 판정: 제공 코드로 Head-only Fine-tuning을 실행해 3클래스 모델을 만들었고, 서비스에서 이 모델이 쓰이는 것을 확인함
+- Best Validation Accuracy 0.7669는 3 Epoch, Backbone 고정 조건의 값. Train Loss가 계속 내려가는 중이라 Epoch를 늘리면 바뀔 수 있음 (미실험)
+- 1순위 점수가 0.38~0.85로 낮은 편 — 확신이 약한 예측이 많음. 서비스 표본에서 틀린 2장은 점수 0.383, 0.500
+- 한계: Test Accuracy, 클래스별 지표, 혼동행렬, Full Fine-tuning 비교 모두 미측정

@@ -1,0 +1,22 @@
+ id | status |              image_path              |         model_id         |    top1_label     | top1_score | inference_ms | cache_hit |          created_at           |          updated_at           
+----+--------+--------------------------------------+--------------------------+-------------------+------------+--------------+-----------+-------------------------------+-------------------------------
+  1 | done   | 10efee405cd94d08b8f12fb94564b955.bin | artifacts/beans_resnet18 | bean_rust         |     0.6051 |      2214.16 | f         | 2026-11-04 02:09:20.318518+00 | 2026-11-04 02:09:22.597558+00
+  2 | done   | 1f49c5bd237c4c7795a470b50113641a.bin | artifacts/beans_resnet18 | angular_leaf_spot |     0.3825 |         16.9 | f         | 2026-11-04 02:09:22.759201+00 | 2026-11-04 02:09:22.788987+00
+  3 | done   | 2a2298c8445b45e6b85ffe1f27f82dc9.bin | artifacts/beans_resnet18 | bean_rust         |     0.5000 |        17.88 | f         | 2026-11-04 02:09:22.875718+00 | 2026-11-04 02:09:22.905636+00
+  4 | done   | 434d49da360e46918c1d8c402e5388e6.bin | artifacts/beans_resnet18 | angular_leaf_spot |     0.5796 |        21.02 | f         | 2026-11-04 02:09:22.997388+00 | 2026-11-04 02:09:23.031101+00
+  5 | done   | 5366e47d2c6a454789a1fc39c01e2b7d.bin | artifacts/beans_resnet18 | bean_rust         |     0.5911 |         18.2 | f         | 2026-11-04 02:09:23.118984+00 | 2026-11-04 02:09:23.14978+00
+  6 | done   | 9e222a496d9648d49870b26e4038a68d.bin | artifacts/beans_resnet18 | healthy           |     0.8478 |        19.79 | f         | 2026-11-04 02:09:23.239869+00 | 2026-11-04 02:09:23.271869+00
+  7 | done   | 5928652a86ed47cab7685509fe617b51.bin | artifacts/beans_resnet18 | angular_leaf_spot |     0.3825 |              | t         | 2026-11-04 02:09:23.361019+00 | 2026-11-04 02:09:23.370865+00
+  8 | done   | cef9b2587ea64e03b7d85782863b6201.bin | artifacts/beans_resnet18 | bean_rust         |     0.5000 |              | t         | 2026-11-04 02:09:23.482547+00 | 2026-11-04 02:09:23.492454+00
+  9 | done   | 758ee1ecc5e7410082ca16530b000f26.bin | artifacts/beans_resnet18 | angular_leaf_spot |     0.5796 |              | t         | 2026-11-04 02:09:23.599896+00 | 2026-11-04 02:09:23.610859+00
+ 10 | done   | 8cbb2f8434094ead816637f8da54da5e.bin | artifacts/beans_resnet18 | bean_rust         |     0.5911 |              | t         | 2026-11-04 02:09:23.71988+00  | 2026-11-04 02:09:23.729728+00
+ 11 | done   | a0b360a3b8504627a7aa32fb31e0175b.bin | artifacts/beans_resnet18 | healthy           |     0.8478 |              | t         | 2026-11-04 02:09:23.835632+00 | 2026-11-04 02:09:23.845177+00
+ 12 | done   | 4928c994ac984f49a482d18ae3af6a09.bin | artifacts/beans_resnet18 | healthy           |     0.6523 |      2413.05 | f         | 2026-11-04 02:09:51.771602+00 | 2026-11-04 02:10:02.29805+00
+(12 rows)
+
+ status | cache_hit | count 
+--------+-----------+-------
+ done   | f         |     7
+ done   | t         |     5
+(2 rows)
+
