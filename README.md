@@ -233,6 +233,9 @@ flowchart TB
 
 <sub>증빙 `reports/evidence/` · 도표 `reports/figures/` · 측정 원본 `reports/data/`</sub>
 
+**🎤 발표** · [3분 발표 메모](presentation/발표_3분_질의응답.md) · 강사님 구술 평가 질문·모범답변 70문항: [개요](presentation/QnA/1.%20평가%20개요.md) · [A 데이터·모델 개선](presentation/QnA/2.%20QnA-데이터%20분류·Fine-tuning·모델%20개선%20실험.md) · [B 아키텍처](presentation/QnA/3.%20전체%20아키텍처·함수%20기반%20AI%20데이터%20처리.md) · [C 파일 연결·CRUD](presentation/QnA/4.%20파일%20연결관계·CRUD%20및%20테이블%20확장%20시%20영향.md) · [D 면접 10문항](presentation/QnA/5.%20기술%20면접에서%20자주%20묻는%20핵심%20질문%20(10문항).md) · [채점 기록 예시](presentation/QnA/6.%20평가자용%20채점%20기록%20예시.md)
+<sub>QnA는 강사님 제공 자료(2026-11-05 발표). 문항마다 붙어 있던 학생 이름은 지웠고, 내가 받은 질문(D-01)만 🙋로 표시</sub>
+
 ---
 
 <details>
