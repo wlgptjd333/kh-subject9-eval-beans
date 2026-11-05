@@ -163,3 +163,8 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 ## 11. Git에 올리지 않는 것
 
 `.venv/`, `.env`, `dataset/`, `beans_source/`, `artifacts/` 안의 모델, `media/jobs/` 안의 업로드 파일. `compose.yaml`의 DB 비밀번호는 로컬 실습용 기본값입니다. 데이터는 3절 스크립트로 Hugging Face에서 받습니다.
+
+## 발표
+
+- 3분 설명 대본·시연 순서·예상 질문: [presentation/발표_3분_질의응답.md](presentation/발표_3분_질의응답.md)
+- 개선 실험(CNN + OpenCV 규칙 후처리): [산출물 1 §6-3](reports/01_FineTuning_결과보고서.md), 코드 `scripts/review_rule.py` (분석용 `requirements-analysis.txt`)

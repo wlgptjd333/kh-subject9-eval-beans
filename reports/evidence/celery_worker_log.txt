@@ -202,3 +202,27 @@ Trying again in 2.00 seconds... (1/100)
 [2026-11-04 12:53:50,499: INFO/MainProcess] Task ai.classify_job[73f266f9-de8e-4513-9fe3-9e1ab08d2988] succeeded in 0.034281745998669066s: {'job_id': 15, 'status': 'done'}
 [2026-11-04 12:54:11,959: INFO/MainProcess] Task ai.classify_job[dfa8e0fc-9aa1-4349-9c6b-c5f3d0cfb85c] received
 [2026-11-04 12:54:11,993: INFO/MainProcess] Task ai.classify_job[dfa8e0fc-9aa1-4349-9c6b-c5f3d0cfb85c] succeeded in 0.03319047700097144s: {'job_id': 16, 'status': 'done'}
+$ celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concurrency=1   (.venv, 2026-11-05 09:17:58 +0900)
+ 
+ -------------- celery@DESKTOP-761SQI1 v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43 2026-11-05 09:17:59
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vision_ai:0x7972f3b14c10
+- ** ---------- .> transport:   redis://:**@127.0.0.1:6379/2
+- ** ---------- .> results:     redis://127.0.0.1:6379/3
+- *** --- * --- .> concurrency: 1 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . ai.classify_job
+
+[2026-11-05 09:17:59,548: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-05 09:17:59,551: INFO/MainProcess] mingle: searching for neighbors
+[2026-11-05 09:18:00,563: INFO/MainProcess] mingle: all alone
+[2026-11-05 09:18:00,570: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
