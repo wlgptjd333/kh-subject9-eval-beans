@@ -226,3 +226,153 @@ $ celery -A ai.celery_app:celery_app worker --loglevel=info --pool=solo --concur
 [2026-11-05 09:17:59,551: INFO/MainProcess] mingle: searching for neighbors
 [2026-11-05 09:18:00,563: INFO/MainProcess] mingle: all alone
 [2026-11-05 09:18:00,570: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
+[2026-11-05 09:41:55,908: INFO/MainProcess] Task ai.classify_job[21c4ad54-adc5-4372-96e5-a970136917bc] received
+[2026-11-05 09:41:55,932: INFO/MainProcess] Task ai.classify_job[21c4ad54-adc5-4372-96e5-a970136917bc] succeeded in 0.024045212999681098s: {'job_id': 17, 'status': 'done'}
+[2026-11-05 10:00:55,052: INFO/MainProcess] Task ai.classify_job[19fc52c4-32d7-4b5c-82ec-1579a8e6f3e3] received
+[2026-11-05 10:00:59,357: WARNING/MainProcess] Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[2026-11-05 10:00:59,359: WARNING/MainProcess] Device set to use cpu
+[2026-11-05 10:00:59,401: INFO/MainProcess] Task ai.classify_job[19fc52c4-32d7-4b5c-82ec-1579a8e6f3e3] succeeded in 4.348591315000249s: {'job_id': 18, 'status': 'done'}
+[2026-11-05 10:01:01,764: INFO/MainProcess] Task ai.classify_job[72851cb6-0ec7-421b-9f7b-af56ebf8776d] received
+[2026-11-05 10:01:01,800: INFO/MainProcess] Task ai.classify_job[72851cb6-0ec7-421b-9f7b-af56ebf8776d] succeeded in 0.03590755999994144s: {'job_id': 19, 'status': 'done'}
+[2026-11-05 10:01:36,653: INFO/MainProcess] Task ai.classify_job[501db135-f93f-4f74-9b0a-c8ab1946e8b6] received
+[2026-11-05 10:01:36,681: INFO/MainProcess] Task ai.classify_job[501db135-f93f-4f74-9b0a-c8ab1946e8b6] succeeded in 0.0278288029999203s: {'job_id': 20, 'status': 'done'}
+[2026-11-05 10:01:45,341: INFO/MainProcess] Task ai.classify_job[421206ef-13a5-491f-aaab-c139a3728f65] received
+[2026-11-05 10:01:45,349: INFO/MainProcess] Task ai.classify_job[421206ef-13a5-491f-aaab-c139a3728f65] succeeded in 0.0072822590000214404s: {'job_id': 21, 'status': 'done'}
+[2026-11-05 10:01:54,491: INFO/MainProcess] Task ai.classify_job[b9a3125b-9830-42d7-b9e9-7412a99b13af] received
+[2026-11-05 10:01:54,499: INFO/MainProcess] Task ai.classify_job[b9a3125b-9830-42d7-b9e9-7412a99b13af] succeeded in 0.007356324999818753s: {'job_id': 22, 'status': 'done'}
+[2026-11-05 10:27:17,466: INFO/MainProcess] Task ai.classify_job[cf88205e-27e3-4077-85df-6641fab82bde] received
+[2026-11-05 10:27:17,506: INFO/MainProcess] Task ai.classify_job[cf88205e-27e3-4077-85df-6641fab82bde] succeeded in 0.039679449999312055s: {'job_id': 23, 'status': 'done'}
+[2026-11-05 10:27:20,036: INFO/MainProcess] Task ai.classify_job[cd82acff-e85a-4f13-a5cb-3c93e1c06a90] received
+[2026-11-05 10:27:20,068: INFO/MainProcess] Task ai.classify_job[cd82acff-e85a-4f13-a5cb-3c93e1c06a90] succeeded in 0.03208155700031057s: {'job_id': 24, 'status': 'done'}
+[2026-11-05 10:27:23,227: INFO/MainProcess] Task ai.classify_job[744db76a-5036-4a37-b9aa-882ea4b2b585] received
+[2026-11-05 10:27:23,258: INFO/MainProcess] Task ai.classify_job[744db76a-5036-4a37-b9aa-882ea4b2b585] succeeded in 0.029925511999863375s: {'job_id': 25, 'status': 'done'}
+[2026-11-05 10:27:26,169: INFO/MainProcess] Task ai.classify_job[5ed71039-753a-413f-b6b3-248a4934666f] received
+[2026-11-05 10:27:26,200: INFO/MainProcess] Task ai.classify_job[5ed71039-753a-413f-b6b3-248a4934666f] succeeded in 0.030180186000507092s: {'job_id': 26, 'status': 'done'}
+[2026-11-05 10:27:27,849: INFO/MainProcess] Task ai.classify_job[8e8e3c8f-801e-47cb-ad4d-90b8e70866ad] received
+[2026-11-05 10:27:27,879: INFO/MainProcess] Task ai.classify_job[8e8e3c8f-801e-47cb-ad4d-90b8e70866ad] succeeded in 0.029217407000032836s: {'job_id': 27, 'status': 'done'}
+[2026-11-05 10:27:34,304: INFO/MainProcess] Task ai.classify_job[bacf5408-b9b9-4787-a38a-51f05dc7482d] received
+[2026-11-05 10:27:34,313: INFO/MainProcess] Task ai.classify_job[bacf5408-b9b9-4787-a38a-51f05dc7482d] succeeded in 0.008665590999953565s: {'job_id': 28, 'status': 'done'}
+[2026-11-05 10:27:36,168: INFO/MainProcess] Task ai.classify_job[76dfc011-9714-4ea3-be55-2289e0b1d07f] received
+[2026-11-05 10:27:36,174: INFO/MainProcess] Task ai.classify_job[76dfc011-9714-4ea3-be55-2289e0b1d07f] succeeded in 0.0060301930006971816s: {'job_id': 29, 'status': 'done'}
+[2026-11-05 10:32:27,365: INFO/MainProcess] Task ai.classify_job[2aac1766-aadc-4a55-b7da-755c076faa9f] received
+[2026-11-05 10:32:27,372: INFO/MainProcess] Task ai.classify_job[2aac1766-aadc-4a55-b7da-755c076faa9f] succeeded in 0.006972920000407612s: {'job_id': 30, 'status': 'done'}
+[2026-11-05 10:32:28,842: INFO/MainProcess] Task ai.classify_job[e5476671-375f-48b5-8236-d022fb454977] received
+[2026-11-05 10:32:28,877: INFO/MainProcess] Task ai.classify_job[e5476671-375f-48b5-8236-d022fb454977] succeeded in 0.034340617999987444s: {'job_id': 31, 'status': 'done'}
+[2026-11-05 10:32:28,879: INFO/MainProcess] Task ai.classify_job[332eac39-1e38-4b61-a377-5b08b4889bd7] received
+[2026-11-05 10:32:28,906: INFO/MainProcess] Task ai.classify_job[332eac39-1e38-4b61-a377-5b08b4889bd7] succeeded in 0.027032573999349552s: {'job_id': 32, 'status': 'done'}
+[2026-11-05 10:32:28,907: INFO/MainProcess] Task ai.classify_job[a43addb6-6c3b-412b-af10-ad0dd072e8ce] received
+[2026-11-05 10:32:28,937: INFO/MainProcess] Task ai.classify_job[a43addb6-6c3b-412b-af10-ad0dd072e8ce] succeeded in 0.029303274999620044s: {'job_id': 33, 'status': 'done'}
+[2026-11-05 10:32:28,939: INFO/MainProcess] Task ai.classify_job[add79acc-3301-4eca-ab35-051fbae7c0cc] received
+[2026-11-05 10:32:28,968: INFO/MainProcess] Task ai.classify_job[add79acc-3301-4eca-ab35-051fbae7c0cc] succeeded in 0.02929141500044352s: {'job_id': 34, 'status': 'done'}
+[2026-11-05 10:32:28,969: INFO/MainProcess] Task ai.classify_job[9e5c5b2e-d434-45ac-bf72-f9609ea6122b] received
+[2026-11-05 10:32:28,996: INFO/MainProcess] Task ai.classify_job[9e5c5b2e-d434-45ac-bf72-f9609ea6122b] succeeded in 0.026253008999447047s: {'job_id': 35, 'status': 'done'}
+[2026-11-05 10:32:28,997: INFO/MainProcess] Task ai.classify_job[118e95a6-368c-4e28-93ba-777b57f0f550] received
+[2026-11-05 10:32:29,023: INFO/MainProcess] Task ai.classify_job[118e95a6-368c-4e28-93ba-777b57f0f550] succeeded in 0.026148585000555613s: {'job_id': 36, 'status': 'done'}
+[2026-11-05 10:32:29,025: INFO/MainProcess] Task ai.classify_job[473f2a5d-9e5a-43a8-b6b5-03f5ecd4f00f] received
+[2026-11-05 10:32:29,052: INFO/MainProcess] Task ai.classify_job[473f2a5d-9e5a-43a8-b6b5-03f5ecd4f00f] succeeded in 0.026750017999802367s: {'job_id': 37, 'status': 'done'}
+[2026-11-05 10:32:29,053: INFO/MainProcess] Task ai.classify_job[de85eb89-26aa-4e2d-8da3-94943f6ca757] received
+[2026-11-05 10:32:29,079: INFO/MainProcess] Task ai.classify_job[de85eb89-26aa-4e2d-8da3-94943f6ca757] succeeded in 0.025655372999608517s: {'job_id': 38, 'status': 'done'}
+[2026-11-05 10:32:29,081: INFO/MainProcess] Task ai.classify_job[887b2014-6c51-4511-84c4-3d615dd17371] received
+[2026-11-05 10:32:29,107: INFO/MainProcess] Task ai.classify_job[887b2014-6c51-4511-84c4-3d615dd17371] succeeded in 0.026387542000520625s: {'job_id': 39, 'status': 'done'}
+[2026-11-05 10:32:29,108: INFO/MainProcess] Task ai.classify_job[e651718a-a050-467c-a94f-1767c96e4d68] received
+[2026-11-05 10:32:29,135: INFO/MainProcess] Task ai.classify_job[e651718a-a050-467c-a94f-1767c96e4d68] succeeded in 0.02591134099930059s: {'job_id': 40, 'status': 'done'}
+[2026-11-05 10:32:31,579: INFO/MainProcess] Task ai.classify_job[1043ce53-ff7d-4022-a38d-e31426707976] received
+[2026-11-05 10:32:31,609: INFO/MainProcess] Task ai.classify_job[1043ce53-ff7d-4022-a38d-e31426707976] succeeded in 0.030162308999933884s: {'job_id': 42, 'status': 'done'}
+[2026-11-05 10:32:31,654: INFO/MainProcess] Task ai.classify_job[98d124e5-f178-4d84-986f-992aeca6fec3] received
+[2026-11-05 10:32:31,693: INFO/MainProcess] Task ai.classify_job[98d124e5-f178-4d84-986f-992aeca6fec3] succeeded in 0.03946177800025907s: {'job_id': 41, 'status': 'done'}
+[2026-11-05 10:32:31,705: INFO/MainProcess] Task ai.classify_job[b8bd4f57-3170-4eac-a5d9-b24820aebc18] received
+[2026-11-05 10:32:31,733: INFO/MainProcess] Task ai.classify_job[b8bd4f57-3170-4eac-a5d9-b24820aebc18] succeeded in 0.02820804800012411s: {'job_id': 46, 'status': 'done'}
+[2026-11-05 10:32:31,735: INFO/MainProcess] Task ai.classify_job[8982786b-a3d1-4cb2-bb0c-a43734f7c18d] received
+[2026-11-05 10:32:31,762: INFO/MainProcess] Task ai.classify_job[8982786b-a3d1-4cb2-bb0c-a43734f7c18d] succeeded in 0.027233042000261776s: {'job_id': 43, 'status': 'done'}
+[2026-11-05 10:32:31,764: INFO/MainProcess] Task ai.classify_job[56002720-0e7b-47f6-b5e6-3746fdba8fd0] received
+[2026-11-05 10:32:31,793: INFO/MainProcess] Task ai.classify_job[56002720-0e7b-47f6-b5e6-3746fdba8fd0] succeeded in 0.02859616499972617s: {'job_id': 50, 'status': 'done'}
+[2026-11-05 10:32:31,794: INFO/MainProcess] Task ai.classify_job[a492b07c-61be-4017-b2c6-7e434df741b3] received
+[2026-11-05 10:32:31,821: INFO/MainProcess] Task ai.classify_job[a492b07c-61be-4017-b2c6-7e434df741b3] succeeded in 0.026830508000784903s: {'job_id': 45, 'status': 'done'}
+[2026-11-05 10:32:31,823: INFO/MainProcess] Task ai.classify_job[39488a9f-ce5c-4eba-a395-b996020d1c33] received
+[2026-11-05 10:32:31,850: INFO/MainProcess] Task ai.classify_job[39488a9f-ce5c-4eba-a395-b996020d1c33] succeeded in 0.027504326999405748s: {'job_id': 48, 'status': 'done'}
+[2026-11-05 10:32:31,852: INFO/MainProcess] Task ai.classify_job[3a2b15c6-d363-4fec-969e-9217a9eebed5] received
+[2026-11-05 10:32:31,879: INFO/MainProcess] Task ai.classify_job[3a2b15c6-d363-4fec-969e-9217a9eebed5] succeeded in 0.027364759000192862s: {'job_id': 44, 'status': 'done'}
+[2026-11-05 10:32:31,881: INFO/MainProcess] Task ai.classify_job[9a85cdd1-0f08-49c1-b0e9-f7754b6e4a71] received
+[2026-11-05 10:32:31,913: INFO/MainProcess] Task ai.classify_job[9a85cdd1-0f08-49c1-b0e9-f7754b6e4a71] succeeded in 0.032201535000240256s: {'job_id': 49, 'status': 'done'}
+[2026-11-05 10:32:31,915: INFO/MainProcess] Task ai.classify_job[9542ad13-d3dd-4b47-9a2c-ea9e0a227961] received
+[2026-11-05 10:32:31,947: INFO/MainProcess] Task ai.classify_job[9542ad13-d3dd-4b47-9a2c-ea9e0a227961] succeeded in 0.03173744700052339s: {'job_id': 47, 'status': 'done'}
+[2026-11-05 10:32:34,513: INFO/MainProcess] Task ai.classify_job[99b757b6-1d55-454e-abb3-70ad7b93bee4] received
+[2026-11-05 10:32:34,543: INFO/MainProcess] Task ai.classify_job[99b757b6-1d55-454e-abb3-70ad7b93bee4] succeeded in 0.030401901999539405s: {'job_id': 51, 'status': 'done'}
+[2026-11-05 10:32:34,545: INFO/MainProcess] Task ai.classify_job[7c7b0835-52bb-4768-96c1-1f8bd3190822] received
+[2026-11-05 10:32:34,574: INFO/MainProcess] Task ai.classify_job[7c7b0835-52bb-4768-96c1-1f8bd3190822] succeeded in 0.028864736999821616s: {'job_id': 52, 'status': 'done'}
+[2026-11-05 10:32:34,575: INFO/MainProcess] Task ai.classify_job[11ce611d-94cb-4932-acb5-d2dc4b3ba06d] received
+[2026-11-05 10:32:34,603: INFO/MainProcess] Task ai.classify_job[11ce611d-94cb-4932-acb5-d2dc4b3ba06d] succeeded in 0.02691415300068911s: {'job_id': 53, 'status': 'done'}
+[2026-11-05 10:32:34,604: INFO/MainProcess] Task ai.classify_job[07dfc778-d4b8-40ab-8d53-a60a25c99ea9] received
+[2026-11-05 10:32:34,633: INFO/MainProcess] Task ai.classify_job[07dfc778-d4b8-40ab-8d53-a60a25c99ea9] succeeded in 0.028902829000799102s: {'job_id': 54, 'status': 'done'}
+[2026-11-05 10:32:34,635: INFO/MainProcess] Task ai.classify_job[b2c7d0d3-66ca-4c69-927c-1fff3f91a1f5] received
+[2026-11-05 10:32:34,666: INFO/MainProcess] Task ai.classify_job[b2c7d0d3-66ca-4c69-927c-1fff3f91a1f5] succeeded in 0.030522746000315237s: {'job_id': 55, 'status': 'done'}
+[2026-11-05 10:32:34,668: INFO/MainProcess] Task ai.classify_job[5f2faecd-d1ce-40e7-87ae-288a994df3f1] received
+[2026-11-05 10:32:34,694: INFO/MainProcess] Task ai.classify_job[5f2faecd-d1ce-40e7-87ae-288a994df3f1] succeeded in 0.025741245999597595s: {'job_id': 56, 'status': 'done'}
+[2026-11-05 10:32:34,695: INFO/MainProcess] Task ai.classify_job[1e0bb05a-d7a1-4b57-bdc2-1edfa8376c94] received
+[2026-11-05 10:32:34,720: INFO/MainProcess] Task ai.classify_job[1e0bb05a-d7a1-4b57-bdc2-1edfa8376c94] succeeded in 0.025375356000040483s: {'job_id': 57, 'status': 'done'}
+[2026-11-05 10:32:34,722: INFO/MainProcess] Task ai.classify_job[9216a5c5-6f20-4032-932d-89c4bfdd05f2] received
+[2026-11-05 10:32:34,747: INFO/MainProcess] Task ai.classify_job[9216a5c5-6f20-4032-932d-89c4bfdd05f2] succeeded in 0.02567372800058365s: {'job_id': 58, 'status': 'done'}
+[2026-11-05 10:32:34,749: INFO/MainProcess] Task ai.classify_job[46bbc64f-2007-4661-9ac6-c6e6a5abde3f] received
+[2026-11-05 10:32:34,777: INFO/MainProcess] Task ai.classify_job[46bbc64f-2007-4661-9ac6-c6e6a5abde3f] succeeded in 0.027541050999388972s: {'job_id': 59, 'status': 'done'}
+[2026-11-05 10:32:34,778: INFO/MainProcess] Task ai.classify_job[31cdf4dd-5ce9-406d-aaf1-4722ae08231a] received
+[2026-11-05 10:32:34,807: INFO/MainProcess] Task ai.classify_job[31cdf4dd-5ce9-406d-aaf1-4722ae08231a] succeeded in 0.028302229000473744s: {'job_id': 60, 'status': 'done'}
+[2026-11-05 10:32:37,163: INFO/MainProcess] Task ai.classify_job[e0bd7def-8b24-4f15-8092-49d4df475575] received
+[2026-11-05 10:32:37,208: INFO/MainProcess] Task ai.classify_job[e0bd7def-8b24-4f15-8092-49d4df475575] succeeded in 0.045341979999648174s: {'job_id': 62, 'status': 'done'}
+[2026-11-05 10:32:37,211: INFO/MainProcess] Task ai.classify_job[c97ac44a-1a39-448a-a8fb-9357e325c856] received
+[2026-11-05 10:32:37,267: INFO/MainProcess] Task ai.classify_job[c97ac44a-1a39-448a-a8fb-9357e325c856] succeeded in 0.0554837250001583s: {'job_id': 61, 'status': 'done'}
+[2026-11-05 10:32:37,269: INFO/MainProcess] Task ai.classify_job[c62aad42-c470-4510-b599-633bfcbf421f] received
+[2026-11-05 10:32:37,305: INFO/MainProcess] Task ai.classify_job[c62aad42-c470-4510-b599-633bfcbf421f] succeeded in 0.03561228199941979s: {'job_id': 64, 'status': 'done'}
+[2026-11-05 10:32:37,307: INFO/MainProcess] Task ai.classify_job[d571c30f-03de-493f-b2df-d4124d4003ed] received
+[2026-11-05 10:32:37,340: INFO/MainProcess] Task ai.classify_job[d571c30f-03de-493f-b2df-d4124d4003ed] succeeded in 0.03252124400023604s: {'job_id': 65, 'status': 'done'}
+[2026-11-05 10:32:37,342: INFO/MainProcess] Task ai.classify_job[f63a5352-3c04-440f-9123-19a051d55870] received
+[2026-11-05 10:32:37,377: INFO/MainProcess] Task ai.classify_job[f63a5352-3c04-440f-9123-19a051d55870] succeeded in 0.034997990999727335s: {'job_id': 63, 'status': 'done'}
+[2026-11-05 10:32:37,379: INFO/MainProcess] Task ai.classify_job[12697782-78ba-4320-a301-5c87708eb2e1] received
+[2026-11-05 10:32:37,412: INFO/MainProcess] Task ai.classify_job[12697782-78ba-4320-a301-5c87708eb2e1] succeeded in 0.032495381999979145s: {'job_id': 70, 'status': 'done'}
+[2026-11-05 10:32:37,413: INFO/MainProcess] Task ai.classify_job[d48f0f30-3caf-407f-af87-7c001284af70] received
+[2026-11-05 10:32:37,447: INFO/MainProcess] Task ai.classify_job[d48f0f30-3caf-407f-af87-7c001284af70] succeeded in 0.033363991000442184s: {'job_id': 67, 'status': 'done'}
+[2026-11-05 10:32:37,448: INFO/MainProcess] Task ai.classify_job[3d77169e-c803-4ac4-ba94-961f614a96ff] received
+[2026-11-05 10:32:37,482: INFO/MainProcess] Task ai.classify_job[3d77169e-c803-4ac4-ba94-961f614a96ff] succeeded in 0.03339263399993797s: {'job_id': 68, 'status': 'done'}
+[2026-11-05 10:32:37,484: INFO/MainProcess] Task ai.classify_job[bdf70132-d04f-4195-8ea0-6a2e55978553] received
+[2026-11-05 10:32:37,517: INFO/MainProcess] Task ai.classify_job[bdf70132-d04f-4195-8ea0-6a2e55978553] succeeded in 0.03274567100015702s: {'job_id': 69, 'status': 'done'}
+[2026-11-05 10:32:37,519: INFO/MainProcess] Task ai.classify_job[8266a363-9036-4264-9817-00db54c2e660] received
+[2026-11-05 10:32:37,551: INFO/MainProcess] Task ai.classify_job[8266a363-9036-4264-9817-00db54c2e660] succeeded in 0.03248184400035825s: {'job_id': 66, 'status': 'done'}
+[2026-11-05 10:32:40,164: INFO/MainProcess] Task ai.classify_job[356f4372-6b0d-45af-a51b-d45de030ab98] received
+[2026-11-05 10:32:40,193: INFO/MainProcess] Task ai.classify_job[356f4372-6b0d-45af-a51b-d45de030ab98] succeeded in 0.02882811900053639s: {'job_id': 71, 'status': 'done'}
+[2026-11-05 10:32:40,194: INFO/MainProcess] Task ai.classify_job[204fb4b2-1d9e-456a-b9d5-d66bb7620117] received
+[2026-11-05 10:32:40,220: INFO/MainProcess] Task ai.classify_job[204fb4b2-1d9e-456a-b9d5-d66bb7620117] succeeded in 0.02611255000010715s: {'job_id': 72, 'status': 'done'}
+[2026-11-05 10:32:40,222: INFO/MainProcess] Task ai.classify_job[5e3429aa-15e0-4bfc-ba7a-06b2c044bafb] received
+[2026-11-05 10:32:40,251: INFO/MainProcess] Task ai.classify_job[5e3429aa-15e0-4bfc-ba7a-06b2c044bafb] succeeded in 0.029053135000140173s: {'job_id': 73, 'status': 'done'}
+[2026-11-05 10:32:40,253: INFO/MainProcess] Task ai.classify_job[af4a80d3-afe1-4dbd-b46a-ecb69825d96a] received
+[2026-11-05 10:32:40,281: INFO/MainProcess] Task ai.classify_job[af4a80d3-afe1-4dbd-b46a-ecb69825d96a] succeeded in 0.02844366200042714s: {'job_id': 74, 'status': 'done'}
+[2026-11-05 10:32:40,283: INFO/MainProcess] Task ai.classify_job[4963aa56-d584-4247-912e-84842478416a] received
+[2026-11-05 10:32:40,309: INFO/MainProcess] Task ai.classify_job[4963aa56-d584-4247-912e-84842478416a] succeeded in 0.02616426600070554s: {'job_id': 75, 'status': 'done'}
+[2026-11-05 10:32:40,310: INFO/MainProcess] Task ai.classify_job[f0e2112c-18e7-4b3a-a6c9-b52593ab385f] received
+[2026-11-05 10:32:40,338: INFO/MainProcess] Task ai.classify_job[f0e2112c-18e7-4b3a-a6c9-b52593ab385f] succeeded in 0.027056288000494533s: {'job_id': 76, 'status': 'done'}
+[2026-11-05 10:32:40,339: INFO/MainProcess] Task ai.classify_job[4f9fbb85-d49e-48f8-95b0-837851e57677] received
+[2026-11-05 10:32:40,366: INFO/MainProcess] Task ai.classify_job[4f9fbb85-d49e-48f8-95b0-837851e57677] succeeded in 0.02713524699993286s: {'job_id': 77, 'status': 'done'}
+[2026-11-05 10:32:40,368: INFO/MainProcess] Task ai.classify_job[e91f066b-0607-4f84-a02e-f798f6baf51f] received
+[2026-11-05 10:32:40,394: INFO/MainProcess] Task ai.classify_job[e91f066b-0607-4f84-a02e-f798f6baf51f] succeeded in 0.026556978999906278s: {'job_id': 78, 'status': 'done'}
+[2026-11-05 10:32:40,396: INFO/MainProcess] Task ai.classify_job[0659d1e8-0dfd-4a42-9a40-db31180d76e2] received
+[2026-11-05 10:32:40,424: INFO/MainProcess] Task ai.classify_job[0659d1e8-0dfd-4a42-9a40-db31180d76e2] succeeded in 0.027670362999742792s: {'job_id': 79, 'status': 'done'}
+[2026-11-05 10:32:40,425: INFO/MainProcess] Task ai.classify_job[390cda83-724a-4037-9c7b-852a388a0bae] received
+[2026-11-05 10:32:40,451: INFO/MainProcess] Task ai.classify_job[390cda83-724a-4037-9c7b-852a388a0bae] succeeded in 0.026345715000388736s: {'job_id': 80, 'status': 'done'}
+[2026-11-05 10:32:42,806: INFO/MainProcess] Task ai.classify_job[4239f0be-ce59-48f4-9a77-82881fcdebb6] received
+[2026-11-05 10:32:42,838: INFO/MainProcess] Task ai.classify_job[4239f0be-ce59-48f4-9a77-82881fcdebb6] succeeded in 0.03161174199976813s: {'job_id': 81, 'status': 'done'}
+[2026-11-05 10:32:42,839: INFO/MainProcess] Task ai.classify_job[cfffb7ce-72e5-477d-9fc4-ac144a9df0c0] received
+[2026-11-05 10:32:42,870: INFO/MainProcess] Task ai.classify_job[cfffb7ce-72e5-477d-9fc4-ac144a9df0c0] succeeded in 0.030655457999273494s: {'job_id': 82, 'status': 'done'}
+[2026-11-05 10:32:42,871: INFO/MainProcess] Task ai.classify_job[d4e2ffd5-7a97-410a-9486-cd20a087fd4a] received
+[2026-11-05 10:32:42,900: INFO/MainProcess] Task ai.classify_job[d4e2ffd5-7a97-410a-9486-cd20a087fd4a] succeeded in 0.02857539100023132s: {'job_id': 83, 'status': 'done'}
+[2026-11-05 10:32:42,902: INFO/MainProcess] Task ai.classify_job[72c45d8a-d8e8-4fbd-a601-b6d97fc3fe1b] received
+[2026-11-05 10:32:42,930: INFO/MainProcess] Task ai.classify_job[72c45d8a-d8e8-4fbd-a601-b6d97fc3fe1b] succeeded in 0.027966997000476113s: {'job_id': 85, 'status': 'done'}
+[2026-11-05 10:32:42,932: INFO/MainProcess] Task ai.classify_job[d8d0e598-bec4-45e6-9b7d-a5517ab44935] received
+[2026-11-05 10:32:42,958: INFO/MainProcess] Task ai.classify_job[d8d0e598-bec4-45e6-9b7d-a5517ab44935] succeeded in 0.02604003900069074s: {'job_id': 84, 'status': 'done'}
+[2026-11-05 10:32:42,959: INFO/MainProcess] Task ai.classify_job[3eda1d88-2829-4636-8550-654386fa245e] received
+[2026-11-05 10:32:42,987: INFO/MainProcess] Task ai.classify_job[3eda1d88-2829-4636-8550-654386fa245e] succeeded in 0.027381963999687287s: {'job_id': 86, 'status': 'done'}
+[2026-11-05 10:32:42,988: INFO/MainProcess] Task ai.classify_job[096b834f-42ee-4f6e-88ce-28a0df83aefe] received
+[2026-11-05 10:32:43,019: INFO/MainProcess] Task ai.classify_job[096b834f-42ee-4f6e-88ce-28a0df83aefe] succeeded in 0.030604235000282642s: {'job_id': 87, 'status': 'done'}
+[2026-11-05 10:32:43,020: INFO/MainProcess] Task ai.classify_job[0aad95eb-1c7b-4a84-9ce6-03eb991a948a] received
+[2026-11-05 10:32:43,048: INFO/MainProcess] Task ai.classify_job[0aad95eb-1c7b-4a84-9ce6-03eb991a948a] succeeded in 0.02763288599999214s: {'job_id': 89, 'status': 'done'}
+[2026-11-05 10:32:43,049: INFO/MainProcess] Task ai.classify_job[7deff073-6778-4195-bc22-fedf2093d27a] received
+[2026-11-05 10:32:43,074: INFO/MainProcess] Task ai.classify_job[7deff073-6778-4195-bc22-fedf2093d27a] succeeded in 0.024345740999706322s: {'job_id': 90, 'status': 'done'}
+[2026-11-05 10:32:43,075: INFO/MainProcess] Task ai.classify_job[2ce00897-b27c-4e64-9926-3140191f4361] received
+[2026-11-05 10:32:43,102: INFO/MainProcess] Task ai.classify_job[2ce00897-b27c-4e64-9926-3140191f4361] succeeded in 0.026474014000086754s: {'job_id': 88, 'status': 'done'}

@@ -1,0 +1,168 @@
+{
+  "measured_at": "2026-11-05T10:32:44+09:00",
+  "images": [
+    "angular_leaf_spot/angular_leaf_spot_val.27.jpg",
+    "bean_rust/bean_rust_val.27.jpg",
+    "healthy/healthy_val.27.jpg",
+    "angular_leaf_spot/angular_leaf_spot_val.28.jpg",
+    "bean_rust/bean_rust_val.28.jpg",
+    "healthy/healthy_val.28.jpg",
+    "angular_leaf_spot/angular_leaf_spot_val.29.jpg",
+    "bean_rust/bean_rust_val.29.jpg",
+    "healthy/healthy_val.29.jpg",
+    "angular_leaf_spot/angular_leaf_spot_val.30.jpg"
+  ],
+  "repeat": 3,
+  "poll_s": 0.1,
+  "worker": "--pool=solo --concurrency=1",
+  "median_of_repeats": {
+    "sequential.sync": {
+      "all_responses_ms": 407.1,
+      "http_ms_median": 40.5,
+      "http_ms_max": 41.9
+    },
+    "sequential.async": {
+      "all_responses_ms": 103.9,
+      "http_ms_median": 10.45,
+      "http_ms_max": 12.9,
+      "all_done_ms": 370.1,
+      "queue_len_after_submit": 6,
+      "worker_inference_ms_sum": 178.8
+    },
+    "concurrent.sync": {
+      "all_responses_ms": 144.0,
+      "http_ms_median": 135.60000000000002,
+      "http_ms_max": 140.3
+    },
+    "concurrent.async": {
+      "all_responses_ms": 75.3,
+      "http_ms_median": 60.349999999999994,
+      "http_ms_max": 70.2,
+      "all_done_ms": 485.8,
+      "queue_len_after_submit": 9,
+      "worker_inference_ms_sum": 183.3
+    }
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "mode": "sequential",
+      "path": "sync",
+      "all_responses_ms": 229.2,
+      "http_ms_median": 22.35,
+      "http_ms_max": 27.2
+    },
+    {
+      "repeat": 1,
+      "mode": "sequential",
+      "path": "async",
+      "all_responses_ms": 103.3,
+      "queue_len_after_submit": 6,
+      "all_done_ms": 364.1,
+      "job_ids": "31-40",
+      "worker_inference_ms_sum": 180.7,
+      "http_ms_median": 10.2,
+      "http_ms_max": 12.8
+    },
+    {
+      "repeat": 1,
+      "mode": "concurrent",
+      "path": "sync",
+      "all_responses_ms": 199.6,
+      "http_ms_median": 185.0,
+      "http_ms_max": 193.2
+    },
+    {
+      "repeat": 1,
+      "mode": "concurrent",
+      "path": "async",
+      "all_responses_ms": 216.9,
+      "queue_len_after_submit": 7,
+      "all_done_ms": 485.8,
+      "job_ids": "41-50",
+      "worker_inference_ms_sum": 183.3,
+      "http_ms_median": 205.9,
+      "http_ms_max": 212.0
+    },
+    {
+      "repeat": 2,
+      "mode": "sequential",
+      "path": "sync",
+      "all_responses_ms": 407.1,
+      "http_ms_median": 40.5,
+      "http_ms_max": 41.9
+    },
+    {
+      "repeat": 2,
+      "mode": "sequential",
+      "path": "async",
+      "all_responses_ms": 108.4,
+      "queue_len_after_submit": 6,
+      "all_done_ms": 372.6,
+      "job_ids": "51-60",
+      "worker_inference_ms_sum": 178.8,
+      "http_ms_median": 11.05,
+      "http_ms_max": 12.9
+    },
+    {
+      "repeat": 2,
+      "mode": "concurrent",
+      "path": "sync",
+      "all_responses_ms": 144.0,
+      "http_ms_median": 135.3,
+      "http_ms_max": 140.3
+    },
+    {
+      "repeat": 2,
+      "mode": "concurrent",
+      "path": "async",
+      "all_responses_ms": 75.3,
+      "queue_len_after_submit": 9,
+      "all_done_ms": 507.7,
+      "job_ids": "61-70",
+      "worker_inference_ms_sum": 243.5,
+      "http_ms_median": 60.349999999999994,
+      "http_ms_max": 70.2
+    },
+    {
+      "repeat": 3,
+      "mode": "sequential",
+      "path": "sync",
+      "all_responses_ms": 418.7,
+      "http_ms_median": 41.2,
+      "http_ms_max": 47.0
+    },
+    {
+      "repeat": 3,
+      "mode": "sequential",
+      "path": "async",
+      "all_responses_ms": 103.9,
+      "queue_len_after_submit": 6,
+      "all_done_ms": 370.1,
+      "job_ids": "71-80",
+      "worker_inference_ms_sum": 177.6,
+      "http_ms_median": 10.45,
+      "http_ms_max": 13.8
+    },
+    {
+      "repeat": 3,
+      "mode": "concurrent",
+      "path": "sync",
+      "all_responses_ms": 142.8,
+      "http_ms_median": 135.60000000000002,
+      "http_ms_max": 137.6
+    },
+    {
+      "repeat": 3,
+      "mode": "concurrent",
+      "path": "async",
+      "all_responses_ms": 67.8,
+      "queue_len_after_submit": 9,
+      "all_done_ms": 348.1,
+      "job_ids": "81-90",
+      "worker_inference_ms_sum": 180.5,
+      "http_ms_median": 53.35,
+      "http_ms_max": 64.6
+    }
+  ]
+}
