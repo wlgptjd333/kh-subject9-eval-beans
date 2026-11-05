@@ -1,0 +1,213 @@
+{
+  "model": "artifacts/beans_resnet18",
+  "selected_at": "2026-11-05T09:13:55+09:00",
+  "ratio_threshold_from_train": 0.1006,
+  "train_ratio_stats": {
+    "train_healthy_median": 0.0245,
+    "train_healthy_p95": 0.1006,
+    "train_diseased_median": 0.0385,
+    "train_diseased_over_p95": 0.0476
+  },
+  "criterion": "Val 보류율 <= 0.1에서 잡은 오류 최대, 같으면 보류율 최소",
+  "selected": {
+    "score_threshold": 0.0,
+    "use_lesion_rule": true
+  },
+  "val_grid": [
+    {
+      "score_threshold": 0.0,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 0,
+      "hold_rate": 0.0,
+      "errors_caught": 0,
+      "auto_count": 133,
+      "auto_accuracy": 0.7669,
+      "errors_passed": 31
+    },
+    {
+      "score_threshold": 0.0,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 1,
+      "hold_rate": 0.0075,
+      "errors_caught": 1,
+      "auto_count": 132,
+      "auto_accuracy": 0.7727,
+      "errors_passed": 30
+    },
+    {
+      "score_threshold": 0.5,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 42,
+      "hold_rate": 0.3158,
+      "errors_caught": 18,
+      "auto_count": 91,
+      "auto_accuracy": 0.8571,
+      "errors_passed": 13
+    },
+    {
+      "score_threshold": 0.5,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 42,
+      "hold_rate": 0.3158,
+      "errors_caught": 18,
+      "auto_count": 91,
+      "auto_accuracy": 0.8571,
+      "errors_passed": 13
+    },
+    {
+      "score_threshold": 0.6,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 84,
+      "hold_rate": 0.6316,
+      "errors_caught": 28,
+      "auto_count": 49,
+      "auto_accuracy": 0.9388,
+      "errors_passed": 3
+    },
+    {
+      "score_threshold": 0.6,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 84,
+      "hold_rate": 0.6316,
+      "errors_caught": 28,
+      "auto_count": 49,
+      "auto_accuracy": 0.9388,
+      "errors_passed": 3
+    },
+    {
+      "score_threshold": 0.7,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 104,
+      "hold_rate": 0.782,
+      "errors_caught": 31,
+      "auto_count": 29,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.7,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 104,
+      "hold_rate": 0.782,
+      "errors_caught": 31,
+      "auto_count": 29,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.8,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 122,
+      "hold_rate": 0.9173,
+      "errors_caught": 31,
+      "auto_count": 11,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.8,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 122,
+      "hold_rate": 0.9173,
+      "errors_caught": 31,
+      "auto_count": 11,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.9,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 131,
+      "hold_rate": 0.985,
+      "errors_caught": 31,
+      "auto_count": 2,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.9,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 131,
+      "hold_rate": 0.985,
+      "errors_caught": 31,
+      "auto_count": 2,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.95,
+      "use_lesion_rule": false,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 132,
+      "hold_rate": 0.9925,
+      "errors_caught": 31,
+      "auto_count": 1,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    },
+    {
+      "score_threshold": 0.95,
+      "use_lesion_rule": true,
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 132,
+      "hold_rate": 0.9925,
+      "errors_caught": 31,
+      "auto_count": 1,
+      "auto_accuracy": 1.0,
+      "errors_passed": 0
+    }
+  ],
+  "applied": {
+    "val": {
+      "count": 133,
+      "model_accuracy": 0.7669,
+      "errors": 31,
+      "held": 1,
+      "hold_rate": 0.0075,
+      "errors_caught": 1,
+      "auto_count": 132,
+      "auto_accuracy": 0.7727,
+      "errors_passed": 30
+    }
+  }
+}
