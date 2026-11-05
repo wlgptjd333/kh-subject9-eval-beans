@@ -53,7 +53,7 @@ flowchart LR
 ### 서비스 — 같은 판정 함수를 두 경로로
 
 ```mermaid
-flowchart LR
+flowchart TB
     B["🌐 브라우저"] -->|"POST /api/sync/classify/<br/>결과까지 대기 (200)"| F
     B -->|"POST /api/async/classify/<br/>접수만 (202 + job_id)"| F
     subgraph HOST["WSL2 · .venv"]
