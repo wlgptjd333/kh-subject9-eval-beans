@@ -172,3 +172,24 @@ API-03 오류 (Redis 정지) → 503 — [t15_redis_stopped.txt](evidence/t15_re
 | API-04-T02 | `/api/async/jobs/999999/` | 404 | `error_cases.job_404` |
 | API-04-T03 | 업로드 파일이 사라진 job 13 | 200, `failed` + `error_message` | [t10_t16_worker_stopped.txt](evidence/t10_t16_worker_stopped.txt) |
 | WEB-01·02 | 화면에서 업로드·버튼 클릭 | 200 | [ui_sync_miss.png](evidence/ui_sync_miss.png), [ui_async_done.png](evidence/ui_async_done.png) |
+
+## 실행 캡처
+
+터미널 캡처는 실제 명령과 그 출력(`evidence/screens/src/*.txt`)을 `scripts/render_screens.py`로 PNG로 옮긴 것이다. 브라우저 캡처는 헤드리스 Chrome으로 실제 페이지를 찍었다.
+
+**Swagger UI (`/docs`)**
+
+![ui_swagger](evidence/screens/ui_swagger.png)
+
+**브라우저 `GET /api/async/jobs/16/` → done**
+
+![cap17_job_done_json](evidence/screens/cap17_job_done_json.png)
+
+**브라우저 `GET /api/async/jobs/13/` → failed + error_message**
+
+![cap18_job_failed_json](evidence/screens/cap18_job_failed_json.png)
+
+**오류 입력 응답 400·413·422·404**
+
+![cap15_errors](evidence/screens/cap15_errors.png)
+

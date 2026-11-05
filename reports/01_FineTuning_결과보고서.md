@@ -251,3 +251,32 @@ E2 Test 세부:
 - 개선: 실행 옵션만 바꾼 Full Fine-tuning(E2)이 Validation 0.985, Test 0.9766로 가장 좋음 (E0 Test 0.7188)
 - 후처리: CNN 점수 < 0.9 보류 규칙으로 Test 자동 통과분 정확도 0.9909 (보류율 14.1%), HSV 면적비 규칙은 효과 없음 (§6-3)
 - 한계: 실험마다 학습 1회(seed 42 하나), 거의 같은 사진 중복은 미점검, Test 128장은 작은 표본이라 1장 = 0.78%p
+
+## 실행 캡처
+
+터미널 캡처는 실제 명령과 그 출력(`evidence/screens/src/*.txt`)을 `scripts/render_screens.py`로 PNG로 옮긴 것이다. 브라우저 캡처는 헤드리스 Chrome으로 실제 페이지를 찍었다.
+
+**데이터 배치·클래스별 개수**
+
+![cap01_dataset](evidence/screens/cap01_dataset.png)
+
+**학습 모델 폴더(E0·E2)와 `.env` MODEL_PATH**
+
+![cap02_model_dirs](evidence/screens/cap02_model_dirs.png)
+
+**E0 Head-only 학습 로그**
+
+![cap03_train_e0](evidence/screens/cap03_train_e0.png)
+
+**E2 Full Fine-tuning 학습 로그 (1000→3 출력층 교체 경고 포함)**
+
+![cap04_train_e2](evidence/screens/cap04_train_e2.png)
+
+**Val 기준 모델 선정 기록과 Test 실행 기록**
+
+![cap05_test_eval](evidence/screens/cap05_test_eval.png)
+
+**개선 실험: E2 + '확인 필요' 규칙 Test 1회 적용**
+
+![cap16_review_rule](evidence/screens/cap16_review_rule.png)
+

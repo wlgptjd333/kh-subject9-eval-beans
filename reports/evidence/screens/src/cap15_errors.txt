@@ -1,0 +1,8 @@
+user1@wsl:~/kh-subject9-eval-beans$ python -c "import json;d=json.load(open(\"reports/evidence/api_responses.json\"));[print(e[\"id\"],e[\"status\"],json.dumps(e[\"body\"],ensure_ascii=False)[:110]) for e in d[\"error_cases\"]]"
+txt_sync 400 {"detail": "올바른 이미지 파일이 아닙니다."}
+txt_async 400 {"detail": "올바른 이미지 파일이 아닙니다."}
+big_sync 413 {"detail": "5MB 이하 파일만 허용합니다."}
+big_async 413 {"detail": "5MB 이하 파일만 허용합니다."}
+no_file_sync 422 {"detail": [{"type": "missing", "loc": ["body", "image"], "msg": "Field required", "input": null}]}
+job_404 404 {"detail": "해당 작업이 없습니다."}
+health 200 {"status": "ok"}

@@ -1,0 +1,5 @@
+user1@wsl:~/kh-subject9-eval-beans$ python scripts/review_rule.py apply --model artifacts/beans_resnet18_full --split test
+test {'count': 128, 'model_accuracy': 0.9766, 'errors': 3, 'held': 18, 'hold_rate': 0.1406, 'errors_caught': 2, 'auto_count': 110, 'auto_accuracy': 0.9909, 'errors_passed': 1}
+  error bean_rust/bean_rust_test.15.jpg angular_leaf_spot 0.9046 0.0428 passed
+  error bean_rust/bean_rust_test.36.jpg angular_leaf_spot 0.6487 0.0606 held
+  error bean_rust/bean_rust_test.37.jpg healthy 0.7088 0.0088 held

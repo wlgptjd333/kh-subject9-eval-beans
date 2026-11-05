@@ -1,0 +1,12 @@
+user1@wsl:~/kh-subject9-eval-beans$ cat reports/data/model_selection.md | sed -n 9,15p
+| E0 Head-only | `--freeze-backbone`, 3 Epoch, lr 2e-4 | 2 | 0.7669 | 0.764 | 0.6444 |
+| E1 Head-only 10 Epoch | `--freeze-backbone`, 10 Epoch, lr 2e-4 | 8 | 0.8947 | 0.8953 | 0.8667 |
+| E2 Full Fine-tuning | 옵션 없음(전체 학습), 5 Epoch, lr 5e-5 | 4 | **0.9850** | **0.985** | **0.9556** |
+
+**선정: E2 `artifacts/beans_resnet18_full`.**
+
+Test 평가 계획 (각 1회, `python -m training.evaluate --split test --final`):
+user1@wsl:~/kh-subject9-eval-beans$ cat reports/data/test_runs.log
+2026-11-04T12:39:19+09:00	artifacts/beans_resnet18	accuracy=0.7188
+2026-11-04T12:39:23+09:00	artifacts/beans_resnet18_full	accuracy=0.9766
+2026-11-05T09:14:36+09:00	artifacts/beans_resnet18_full	review_rule features (CNN 점수+HSV, 규칙 확정 후)

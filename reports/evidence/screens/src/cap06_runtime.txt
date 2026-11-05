@@ -1,0 +1,10 @@
+user1@wsl:~/kh-subject9-eval-beans$ docker compose ps --format "table {{.Name}}\t{{.Image}}\t{{.Status}}"
+NAME                                IMAGE                STATUS
+kh-subject9-eval-beans-postgres-1   postgres:17-alpine   Up 10 minutes (healthy)
+kh-subject9-eval-beans-redis-1      redis:7.4-alpine     Up 10 minutes (healthy)
+user1@wsl:~/kh-subject9-eval-beans$ ps -eo pid,args | grep -E '[u]vicorn main:app|[c]elery -A ai.celery_app' | grep -v tee | cut -c1-150
+   4242 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/celery -A ai.celery_app:celery_app worker --l
+   4275 /home/user1/kh-subject9-eval-beans/.venv/bin/python /home/user1/kh-subject9-eval-beans/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec -T redis redis-cli ping; curl -s http://127.0.0.1:8000/health; echo
+PONG
+{"status":"ok"}

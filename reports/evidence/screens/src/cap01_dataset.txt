@@ -1,0 +1,41 @@
+user1@wsl:~/kh-subject9-eval-beans$ for s in train val test; do for c in angular_leaf_spot bean_rust healthy; do printf "%-6s %-18s %4s장\n" $s $c $(ls dataset/$s/$c | wc -l); done; done
+train  angular_leaf_spot   345장
+train  bean_rust           348장
+train  healthy             341장
+val    angular_leaf_spot    44장
+val    bean_rust            45장
+val    healthy              44장
+test   angular_leaf_spot    43장
+test   bean_rust            43장
+test   healthy              42장
+user1@wsl:~/kh-subject9-eval-beans$ cat reports/data/dataset_check.json | head -30
+{
+  "source": "https://huggingface.co/datasets/AI-Lab-Makerere/beans (data/*.zip)",
+  "mapping": {
+    "train": "train",
+    "validation": "val",
+    "test": "test"
+  },
+  "zip_sha256": {
+    "train.zip": "284fe8456ce20687f4367ae7ad94a64577e7f9fde2c2c6b1c74340ab5dc82715",
+    "validation.zip": "90b7aa1c26d91d9afff07a30bbc67a5ea34f1f1397f068d8675be09d7d0c602d",
+    "test.zip": "ca67b15d960d1e2fd9d23fd8498ce86818ead90755c630a43baf19ec4af09312"
+  },
+  "counts": {
+    "train": {
+      "angular_leaf_spot": 345,
+      "bean_rust": 348,
+      "healthy": 341
+    },
+    "val": {
+      "angular_leaf_spot": 44,
+      "bean_rust": 45,
+      "healthy": 44
+    },
+    "test": {
+      "angular_leaf_spot": 43,
+      "bean_rust": 43,
+      "healthy": 42
+    }
+  },
+  "totals": {

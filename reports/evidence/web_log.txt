@@ -122,3 +122,23 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     127.0.0.1:48482 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50158 - "GET /health HTTP/1.1" 200 OK
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Device set to use cpu
+INFO:     127.0.0.1:58364 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53532 - "POST /api/sync/classify/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34356 - "GET /api/async/jobs/16/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34356 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34356 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34356 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34356 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53840 - "GET /api/async/jobs/16/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53840 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53840 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53840 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53840 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33332 - "GET /api/async/jobs/16/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33332 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:33332 - "GET /api/async/jobs/13/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33332 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33332 - "GET /openapi.json HTTP/1.1" 200 OK

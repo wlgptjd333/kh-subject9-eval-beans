@@ -1,0 +1,29 @@
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec postgres psql -U vision_user -d vision_db -c "SELECT id, status, top1_label, round(top1_score::numeric,4) AS score, inference_ms, cache_hit, left(coalesce(error_message,''),38) AS error, to_char(created_at,'MM-DD HH24:MI:SS') AS created FROM image_jobs ORDER BY id;"
+ id | status |    top1_label     | score  | inference_ms | cache_hit |                    error                    |    created     
+----+--------+-------------------+--------+--------------+-----------+---------------------------------------------+----------------
+  1 | done   | bean_rust         | 0.9967 |      3094.68 | f         |                                             | 11-04 03:51:36
+  2 | done   | bean_rust         | 0.9992 |        19.15 | f         |                                             | 11-04 03:51:39
+  3 | done   | healthy           | 0.9953 |        23.93 | f         |                                             | 11-04 03:51:39
+  4 | done   | angular_leaf_spot | 0.9646 |        26.04 | f         |                                             | 11-04 03:51:39
+  5 | done   | bean_rust         | 0.9975 |        29.86 | f         |                                             | 11-04 03:51:39
+  6 | done   | healthy           | 0.9999 |        20.35 | f         |                                             | 11-04 03:51:40
+  7 | done   | bean_rust         | 0.9992 |              | t         |                                             | 11-04 03:51:40
+  8 | done   | healthy           | 0.9953 |              | t         |                                             | 11-04 03:51:40
+  9 | done   | angular_leaf_spot | 0.9646 |              | t         |                                             | 11-04 03:51:40
+ 10 | done   | bean_rust         | 0.9975 |              | t         |                                             | 11-04 03:51:40
+ 11 | done   | healthy           | 0.9999 |              | t         |                                             | 11-04 03:51:40
+ 12 | done   | healthy           | 0.9998 |       2825.9 | f         |                                             | 11-04 03:51:52
+ 13 | failed |                   |        |              |           | FileNotFoundError: [Errno 2] No such f      | 11-04 03:51:52
+ 14 | failed |                   |        |              |           | 작업 큐 등록 실패: Redis 연결을 확인하세요. | 11-04 03:53:41
+ 15 | done   | bean_rust         | 0.9995 |        21.31 | f         |                                             | 11-04 03:53:50
+ 16 | done   | angular_leaf_spot | 0.9992 |        21.91 | f         |                                             | 11-04 03:54:11
+(16 rows)
+
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec postgres psql -U vision_user -d vision_db -c "SELECT status, cache_hit, count(*) FROM image_jobs GROUP BY 1,2 ORDER BY 1,2;"
+ status | cache_hit | count 
+--------+-----------+-------
+ done   | f         |     9
+ done   | t         |     5
+ failed |           |     2
+(3 rows)
+

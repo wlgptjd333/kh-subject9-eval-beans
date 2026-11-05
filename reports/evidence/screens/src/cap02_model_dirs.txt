@@ -1,0 +1,20 @@
+user1@wsl:~/kh-subject9-eval-beans$ ls -la artifacts/beans_resnet18 artifacts/beans_resnet18_full
+artifacts/beans_resnet18:
+total 43740
+drwxr-xr-x 2 user1 user1     4096 Nov  4 11:54 .
+drwxrwxrwx 6 user1 user1     4096 Nov  4 12:29 ..
+-rw-r--r-- 1 user1 user1      808 Nov  4 11:54 config.json
+-rw------- 1 user1 user1 44766388 Nov  4 11:54 model.safetensors
+-rw-r--r-- 1 user1 user1      352 Nov  4 11:54 preprocessor_config.json
+-rw-r--r-- 1 user1 user1      468 Nov  4 11:54 training_report.json
+
+artifacts/beans_resnet18_full:
+total 43740
+drwxr-xr-x 2 user1 user1     4096 Nov  4 12:29 .
+drwxrwxrwx 6 user1 user1     4096 Nov  4 12:29 ..
+-rw-r--r-- 1 user1 user1      808 Nov  4 12:29 config.json
+-rw------- 1 user1 user1 44766388 Nov  4 12:29 model.safetensors
+-rw-r--r-- 1 user1 user1      352 Nov  4 12:29 preprocessor_config.json
+-rw-r--r-- 1 user1 user1      630 Nov  4 12:29 training_report.json
+user1@wsl:~/kh-subject9-eval-beans$ grep MODEL_PATH .env
+MODEL_PATH=artifacts/beans_resnet18_full

@@ -1,0 +1,22 @@
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec -T redis redis-cli -n 1 dbsize
+0
+
+user1@wsl:~/kh-subject9-eval-beans$ curl -s -F image=@dataset/val/healthy/healthy_val.26.jpg http://127.0.0.1:8000/api/sync/classify/ | python3 -c 'import sys,json;d=json.load(sys.stdin);print("1회차:",d["top1"],"inference_ms=",d["inference_ms"],"cache_hit=",d["cache_hit"])'
+1회차: {'label': 'healthy', 'score': 0.9886665344238281} inference_ms= 2665.37 cache_hit= False
+
+user1@wsl:~/kh-subject9-eval-beans$ curl -s -F image=@dataset/val/healthy/healthy_val.26.jpg http://127.0.0.1:8000/api/sync/classify/ | python3 -c 'import sys,json;d=json.load(sys.stdin);print("2회차:",d["top1"],"inference_ms=",d["inference_ms"],"cache_hit=",d["cache_hit"])'
+2회차: {'label': 'healthy', 'score': 0.9886665344238281} inference_ms= None cache_hit= True
+
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec -T redis redis-cli -n 1 --scan --pattern "vision:classify:*"
+vision:classify:a33d10d9ca947d7e:533b1e6e78c6c1e1cd77aedff1a21688a8341016dbd19bcc305b0099d9bcea28
+
+user1@wsl:~/kh-subject9-eval-beans$ sha256sum dataset/val/healthy/healthy_val.26.jpg
+533b1e6e78c6c1e1cd77aedff1a21688a8341016dbd19bcc305b0099d9bcea28  dataset/val/healthy/healthy_val.26.jpg
+
+user1@wsl:~/kh-subject9-eval-beans$ K=$(docker compose exec -T redis redis-cli -n 1 --scan --pattern "vision:classify:*" | head -1); echo "TTL(초):"; docker compose exec -T redis redis-cli -n 1 ttl "$K"
+TTL(초):
+600
+
+user1@wsl:~/kh-subject9-eval-beans$ docker compose exec -T redis redis-cli -n 2 llen celery
+0
+

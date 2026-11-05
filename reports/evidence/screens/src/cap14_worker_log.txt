@@ -1,0 +1,23 @@
+user1@wsl:~/kh-subject9-eval-beans$ grep -E "succeeded|raised|ready|Connected" reports/evidence/celery_worker_log.txt | head -22 | cut -c1-170
+[2026-11-04 12:50:55,314: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:50:56,335: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
+[2026-11-04 12:51:39,504: INFO/MainProcess] Task ai.classify_job[80b4d226-3bbd-450d-982a-fc95b35cfb16] succeeded in 3.131309845999567s: {'job_id': 1, 'status': 'done'}
+[2026-11-04 12:51:39,665: INFO/MainProcess] Task ai.classify_job[b24ff9c1-e4c1-456f-b8a7-2f423bc7130f] succeeded in 0.02887486399959016s: {'job_id': 2, 'status': 'done'}
+[2026-11-04 12:51:39,799: INFO/MainProcess] Task ai.classify_job[8381909b-f59c-4f70-8571-500a54e7800e] succeeded in 0.04097358599938161s: {'job_id': 3, 'status': 'done'}
+[2026-11-04 12:51:39,923: INFO/MainProcess] Task ai.classify_job[9a8abffa-ef82-4dce-8893-b0daf954de25] succeeded in 0.04096562700033246s: {'job_id': 4, 'status': 'done'}
+[2026-11-04 12:51:40,046: INFO/MainProcess] Task ai.classify_job[2b6a9c9b-ad5d-4b93-bade-c2e968234354] succeeded in 0.04335692300082883s: {'job_id': 5, 'status': 'done'}
+[2026-11-04 12:51:40,153: INFO/MainProcess] Task ai.classify_job[d10101fa-5328-4312-bd83-dd147866d4b8] succeeded in 0.032198455000980175s: {'job_id': 6, 'status': 'done'}
+[2026-11-04 12:51:40,246: INFO/MainProcess] Task ai.classify_job[7b06c02b-b45f-4bb7-ad7f-4ab466dda974] succeeded in 0.0075190900006418815s: {'job_id': 7, 'status': 'done'
+[2026-11-04 12:51:40,361: INFO/MainProcess] Task ai.classify_job[8098a627-eca1-4b7a-8847-f6fb80d49ccb] succeeded in 0.006420681998861255s: {'job_id': 8, 'status': 'done'}
+[2026-11-04 12:51:40,483: INFO/MainProcess] Task ai.classify_job[5dfdcb15-7343-4b7d-b7cc-c08cb413dcd3] succeeded in 0.009285612999519799s: {'job_id': 9, 'status': 'done'}
+[2026-11-04 12:51:40,596: INFO/MainProcess] Task ai.classify_job[1d5977a6-4227-4088-9662-7a127eadadf2] succeeded in 0.006172720999529702s: {'job_id': 10, 'status': 'done'
+[2026-11-04 12:51:40,714: INFO/MainProcess] Task ai.classify_job[0dae599d-0c93-455a-b66b-4601eae9aaab] succeeded in 0.007462591000148677s: {'job_id': 11, 'status': 'done'
+[2026-11-04 12:53:31,468: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:53:32,489: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
+[2026-11-04 12:53:35,351: INFO/MainProcess] Task ai.classify_job[176a2c18-be03-4ea8-876f-ca033f2158fb] succeeded in 2.8586726220000855s: {'job_id': 12, 'status': 'done'}
+[2026-11-04 12:53:35,363: ERROR/MainProcess] Task ai.classify_job[9c5855ea-410e-45d1-9e45-9b7b61bab0a3] raised unexpected: FileNotFoundError(2, 'No such file or directory
+[2026-11-04 12:53:43,061: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-04 12:53:50,499: INFO/MainProcess] Task ai.classify_job[73f266f9-de8e-4513-9fe3-9e1ab08d2988] succeeded in 0.034281745998669066s: {'job_id': 15, 'status': 'done'
+[2026-11-04 12:54:11,993: INFO/MainProcess] Task ai.classify_job[dfa8e0fc-9aa1-4349-9c6b-c5f3d0cfb85c] succeeded in 0.03319047700097144s: {'job_id': 16, 'status': 'done'}
+[2026-11-05 09:17:59,548: INFO/MainProcess] Connected to redis://:**@127.0.0.1:6379/2
+[2026-11-05 09:18:00,570: INFO/MainProcess] celery@DESKTOP-761SQI1 ready.
